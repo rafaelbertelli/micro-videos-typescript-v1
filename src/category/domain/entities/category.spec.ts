@@ -42,7 +42,21 @@ describe("Category tests", () => {
       expect(category.name).toEqual(name);
       expect(category.description).toEqual(description);
       expect(category.is_active).toEqual(is_active);
-      expect(category.created_at).toBeUndefined();
+    });
+
+    it("should assert auto fullfil constructor props when it is not passed", () => {
+      // arrange
+      const categoryProperties = { name };
+
+      // act
+      const category = new Category(categoryProperties);
+
+      // assert
+      expect(category).toBeInstanceOf(Category);
+      expect(category.name).toEqual(name);
+      expect(category.description).toBeNull();
+      expect(category.is_active).toBeTruthy();
+      expect(category.created_at).not.toBeUndefined();
     });
   });
 
