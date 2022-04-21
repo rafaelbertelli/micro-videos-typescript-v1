@@ -57,6 +57,7 @@ describe("Category tests", () => {
       expect(category.description).toBeNull();
       expect(category.is_active).toBeTruthy();
       expect(category.created_at).not.toBeUndefined();
+      expect(category.created_at).toBeInstanceOf(Date);
     });
   });
 
