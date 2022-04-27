@@ -1,5 +1,6 @@
-import { Category } from "./category";
 import { faker } from "@faker-js/faker";
+import { Category, CategoryProperties } from "./category";
+import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
 
 describe("Category tests", () => {
   let name: string;
@@ -15,9 +16,14 @@ describe("Category tests", () => {
   });
 
   describe("constructor tests", () => {
-    it("should assert all constructor props", () => {
+    it("should assert all constructor categoryProperties", () => {
       // arrange
-      const categoryProperties = { name, description, is_active, created_at };
+      const categoryProperties: CategoryProperties = {
+        name,
+        description,
+        is_active,
+        created_at,
+      };
 
       // act
       const category = new Category(categoryProperties);
@@ -30,9 +36,13 @@ describe("Category tests", () => {
       expect(category.created_at).toEqual(created_at);
     });
 
-    it("should assert all constructor props with undefined values", () => {
+    it("should assert all constructor categoryProperties with undefined values", () => {
       // arrange
-      const categoryProperties = { name, description, is_active };
+      const categoryProperties: CategoryProperties = {
+        name,
+        description,
+        is_active,
+      };
 
       // act
       const category = new Category(categoryProperties);
@@ -44,9 +54,9 @@ describe("Category tests", () => {
       expect(category.is_active).toEqual(is_active);
     });
 
-    it("should assert auto fullfil constructor props when it is not passed", () => {
+    it("should assert auto fullfil constructor categoryProperties when it is not passed", () => {
       // arrange
-      const categoryProperties = { name };
+      const categoryProperties: CategoryProperties = { name };
 
       // act
       const category = new Category(categoryProperties);
@@ -59,12 +69,67 @@ describe("Category tests", () => {
       expect(category.created_at).not.toBeUndefined();
       expect(category.created_at).toBeInstanceOf(Date);
     });
+
+    describe("uuid tests", () => {
+      it("should auto generate a valid uuid when it is not passed to contructor", () => {
+        // arrange
+        const categoryProperties: CategoryProperties = { name };
+
+        // act
+        const category = new Category(categoryProperties);
+
+        // assert
+        expect(category.id).not.toBeNull();
+        expect(uuidValidate(category.id)).toBeTruthy();
+      });
+
+      it("should auto generate a valid uuid when it is passed null to contructor", () => {
+        // arrange
+        const categoryProperties: CategoryProperties = { name };
+
+        // act
+        const category = new Category(categoryProperties, null);
+
+        // assert
+        expect(category.id).not.toBeNull();
+        expect(uuidValidate(category.id)).toBeTruthy();
+      });
+
+      it("should auto generate a valid uuid when it is passed undefined to contructor", () => {
+        // arrange
+        const categoryProperties: CategoryProperties = { name };
+
+        // act
+        const category = new Category(categoryProperties, undefined);
+
+        // assert
+        expect(category.id).not.toBeNull();
+        expect(uuidValidate(category.id)).toBeTruthy();
+      });
+
+      it("should assert uuid received from constructor", () => {
+        // arrange
+        const categoryProperties: CategoryProperties = { name };
+        const uuid = uuidv4();
+
+        // act
+        const category = new Category(categoryProperties, uuid);
+
+        // assert
+        expect(category.id).toEqual(uuid);
+      });
+    });
   });
 
   describe("getters tests", () => {
     it("should assert all getters", () => {
       // arrange
-      const categoryProperties = { name, description, is_active, created_at };
+      const categoryProperties: CategoryProperties = {
+        name,
+        description,
+        is_active,
+        created_at,
+      };
 
       // act
       const category = new Category(categoryProperties);
