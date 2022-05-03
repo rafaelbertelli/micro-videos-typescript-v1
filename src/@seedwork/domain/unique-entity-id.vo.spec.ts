@@ -1,7 +1,10 @@
+import { v4 as uuidv4 } from "uuid";
 import InvalidUuidError from "../errors/invalid-uuid-error";
 import UniqueEntityId from "./unique-entity-id.vo";
 
 describe("Unique Entity Id Value Object", () => {
+  const validateSpy = jest.spyOn(UniqueEntityId.prototype as any, "validate");
+
   describe("constructor", () => {
     it("should throw UniqueEntityId Error when uuid is not valid", () => {
       // arrange
@@ -12,33 +15,31 @@ describe("Unique Entity Id Value Object", () => {
 
       // assert
       expect(action).toThrowError(InvalidUuidError);
+      expect(validateSpy).toBeCalledTimes(1);
     });
 
     it("should call validate method", () => {
       // arrange
       const uuid = "123";
-      const validateSpy = jest.spyOn(
-        UniqueEntityId.prototype as any,
-        "validate"
-      );
 
       // act
       const action = () => new UniqueEntityId(uuid);
 
       // assert
       expect(action).toThrowError(InvalidUuidError);
-      expect(validateSpy).toHaveBeenCalled();
+      expect(validateSpy).toBeCalledTimes(1);
     });
 
     it("should assert uuid received from constructor", () => {
       // arrange
-      const { id: uuid } = new UniqueEntityId();
+      const uuid = uuidv4();
 
       // act
       const uniqueEntityId = new UniqueEntityId(uuid);
 
       // assert
       expect(uniqueEntityId.id).toEqual(uuid);
+      expect(validateSpy).toBeCalledTimes(1);
     });
 
     it("should create uuid when it is not passed to contructor", () => {
@@ -47,6 +48,7 @@ describe("Unique Entity Id Value Object", () => {
 
       // assert
       expect(uniqueEntityId.id).not.toBeNull();
+      expect(validateSpy).toBeCalledTimes(1);
     });
   });
 });
