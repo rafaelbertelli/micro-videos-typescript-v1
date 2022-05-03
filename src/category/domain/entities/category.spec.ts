@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { Category, CategoryProperties } from "./category";
 import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
+import UniqueEntityId from "../../../@seedwork/domain/unique-entity-id.vo";
 
 describe("Category tests", () => {
   let name: string;
@@ -71,7 +72,7 @@ describe("Category tests", () => {
     });
 
     describe("uuid tests", () => {
-      it("should auto generate a valid uuid when it is not passed to contructor", () => {
+      it("should auto generate a uuid when it is not passed to contructor", () => {
         // arrange
         const categoryProperties: CategoryProperties = { name };
 
@@ -80,10 +81,10 @@ describe("Category tests", () => {
 
         // assert
         expect(category.id).not.toBeNull();
-        expect(uuidValidate(category.id)).toBeTruthy();
+        expect(category.id).toBeInstanceOf(UniqueEntityId);
       });
 
-      it("should auto generate a valid uuid when it is passed null to contructor", () => {
+      it("should auto generate a uuid when it is passed null to contructor", () => {
         // arrange
         const categoryProperties: CategoryProperties = { name };
 
@@ -92,10 +93,10 @@ describe("Category tests", () => {
 
         // assert
         expect(category.id).not.toBeNull();
-        expect(uuidValidate(category.id)).toBeTruthy();
+        expect(category.id).toBeInstanceOf(UniqueEntityId);
       });
 
-      it("should auto generate a valid uuid when it is passed undefined to contructor", () => {
+      it("should auto generate a uuid when it is passed undefined to contructor", () => {
         // arrange
         const categoryProperties: CategoryProperties = { name };
 
@@ -104,13 +105,13 @@ describe("Category tests", () => {
 
         // assert
         expect(category.id).not.toBeNull();
-        expect(uuidValidate(category.id)).toBeTruthy();
+        expect(category.id).toBeInstanceOf(UniqueEntityId);
       });
 
       it("should assert uuid received from constructor", () => {
         // arrange
         const categoryProperties: CategoryProperties = { name };
-        const uuid = uuidv4();
+        const uuid = new UniqueEntityId();
 
         // act
         const category = new Category(categoryProperties, uuid);
