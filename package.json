@@ -9,6 +9,7 @@
     "clean:tsc": "rm tsconfig.tsbuildinfo",
     "clean:all": "rm -rf node_modules && rm package-lock.json && rm tsconfig.tsbuildinfo",
     "test:cov": "jest --coverage",
+    "test:watch": "jest --watch",
     "test": "jest"
   },
   "keywords": [],
