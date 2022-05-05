@@ -2,17 +2,21 @@
 
 Micro serviço do admin de gerenciamento de vídeos
 
-## Docker
+## Instalação e execução
 
-### Subir o projeto no docker
+### Subir o projeto com docker
 
-```docke
+```bash
 docker-compose up --build     # cria e sobe um novo container
 docker-compose up -d          # sobe um container e deixa o terminal livre
 ```
 
-### Acessar ao volume do projeto
+### Acessar o volume do projeto
 
-```docker
+```bash
 docker-compose exec app bash
 ```
+
+### Remote container (vscode)
+
+Caso tenha instalado a instenção do vscode, remote container, a instalação e execução do projeto pode ser feita através dela ao invés de subir manualmente o ambiente no docker.
