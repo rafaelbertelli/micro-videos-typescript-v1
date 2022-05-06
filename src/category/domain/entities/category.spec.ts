@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
+import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 import { Category, CategoryProperties } from "./category";
-import { validate as uuidValidate, v4 as uuidv4 } from "uuid";
-import UniqueEntityId from "../../../@seedwork/domain/unique-entity-id.vo";
 
 describe("Category tests", () => {
   let name: string;
