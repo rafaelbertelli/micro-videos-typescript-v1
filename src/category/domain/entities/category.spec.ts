@@ -79,8 +79,8 @@ describe("Category tests", () => {
         const category = new Category(categoryProperties);
 
         // assert
-        expect(category.id).not.toBeNull();
-        expect(category.id).toBeInstanceOf(UniqueEntityId);
+        expect(category.uniqueEntityId).not.toBeNull();
+        expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
       });
 
       it("should auto generate a uuid when it is passed null to contructor", () => {
@@ -91,8 +91,8 @@ describe("Category tests", () => {
         const category = new Category(categoryProperties, null);
 
         // assert
-        expect(category.id).not.toBeNull();
-        expect(category.id).toBeInstanceOf(UniqueEntityId);
+        expect(category.uniqueEntityId).not.toBeNull();
+        expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
       });
 
       it("should auto generate a uuid when it is passed undefined to contructor", () => {
@@ -103,8 +103,8 @@ describe("Category tests", () => {
         const category = new Category(categoryProperties, undefined);
 
         // assert
-        expect(category.id).not.toBeNull();
-        expect(category.id).toBeInstanceOf(UniqueEntityId);
+        expect(category.uniqueEntityId).not.toBeNull();
+        expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
       });
 
       it("should assert uuid received from constructor", () => {
@@ -116,7 +116,7 @@ describe("Category tests", () => {
         const category = new Category(categoryProperties, uuid);
 
         // assert
-        expect(category.id).toEqual(uuid);
+        expect(category.uniqueEntityId).toEqual(uuid);
       });
     });
   });
