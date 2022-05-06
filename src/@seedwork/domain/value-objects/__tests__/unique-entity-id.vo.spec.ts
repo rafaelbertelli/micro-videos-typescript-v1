@@ -18,18 +18,6 @@ describe("Unique Entity Id Value Object", () => {
       expect(validateSpy).toBeCalledTimes(1);
     });
 
-    it("should call validate method", () => {
-      // arrange
-      const uuid = "123";
-
-      // act
-      const action = () => new UniqueEntityId(uuid);
-
-      // assert
-      expect(action).toThrowError(InvalidUuidError);
-      expect(validateSpy).toBeCalledTimes(1);
-    });
-
     it("should assert uuid received from constructor", () => {
       // arrange
       const uuid = uuidv4();
