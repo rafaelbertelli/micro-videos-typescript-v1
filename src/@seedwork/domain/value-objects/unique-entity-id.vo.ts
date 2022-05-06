@@ -9,7 +9,7 @@ export default class UniqueEntityId extends ValueObject {
   }
 
   private validate() {
-    if (!uuidValidate(this.id)) {
+    if (!uuidValidate(this.value)) {
       throw new InvalidUuidError();
     }
   }
