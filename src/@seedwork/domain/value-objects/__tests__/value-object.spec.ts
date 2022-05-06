@@ -44,4 +44,58 @@ describe("Value Object abstract class", () => {
     expect(stub6.toString()).toStrictEqual("");
     expect(stub7.toString()).toStrictEqual(stub7property.toString());
   });
+
+  it("should assure string immutability", () => {
+    expect.assertions(2);
+
+    // arrange
+    const stubProperty = "go go go";
+    const stub = new StubValueObject(stubProperty);
+
+    // act
+    try {
+      stub.value.prop1 = "forbidden";
+    } catch (error: any) {
+      expect(error).toBeInstanceOf(TypeError);
+    }
+
+    // assert
+    expect(stub.value).toStrictEqual(stubProperty);
+  });
+
+  it("should assure object immutability", () => {
+    expect.assertions(2);
+
+    // arrange
+    const stubProperty = { prop1: "test", prop2: "test2" };
+    const stub = new StubValueObject(stubProperty);
+
+    // act
+    try {
+      stub.value.prop1 = "forbidden";
+    } catch (error: any) {
+      expect(error).toBeInstanceOf(TypeError);
+    }
+
+    // assert
+    expect(stub.value).toStrictEqual(stubProperty);
+  });
+
+  it("should assure deep object immutability", () => {
+    expect.assertions(2);
+
+    // arrange
+    const stubProperty = { prop1: "test", prop2: { prop3: new Date() } };
+    const stub = new StubValueObject(stubProperty);
+
+    // act
+    try {
+      stub.value.prop2.prop3 = "forbidden";
+    } catch (error: any) {
+      expect(error).toBeInstanceOf(TypeError);
+    }
+
+    // assert
+    expect(stub.value).toStrictEqual(stubProperty);
+  });
 });
