@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
-import InvalidUuidError from "../../errors/invalid-uuid-error";
-import UniqueEntityId from "./unique-entity-id.vo";
+import InvalidUuidError from "../../../errors/invalid-uuid-error";
+import UniqueEntityId from "../unique-entity-id.vo";
 
 describe("Unique Entity Id Value Object", () => {
   const validateSpy = jest.spyOn(UniqueEntityId.prototype as any, "validate");
@@ -38,7 +38,7 @@ describe("Unique Entity Id Value Object", () => {
       const uniqueEntityId = new UniqueEntityId(uuid);
 
       // assert
-      expect(uniqueEntityId.id).toEqual(uuid);
+      expect(uniqueEntityId.value).toEqual(uuid);
       expect(validateSpy).toBeCalledTimes(1);
     });
 
@@ -47,7 +47,7 @@ describe("Unique Entity Id Value Object", () => {
       const uniqueEntityId = new UniqueEntityId();
 
       // assert
-      expect(uniqueEntityId.id).not.toBeNull();
+      expect(uniqueEntityId.value).not.toBeNull();
       expect(validateSpy).toBeCalledTimes(1);
     });
   });
