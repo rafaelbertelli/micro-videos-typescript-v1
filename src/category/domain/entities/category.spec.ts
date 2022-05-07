@@ -141,4 +141,75 @@ describe("Category tests", () => {
       expect(category.is_active).toEqual(is_active);
     });
   });
+
+  describe("update category tests", () => {
+    it("should assert update category", () => {
+      // arrange
+      const is_active_deny = !is_active;
+      const props: CategoryProperties = {
+        name,
+        description,
+        is_active,
+        created_at,
+      };
+      const updateProps: CategoryProperties = {
+        name: faker.name.findName(),
+        description: faker.lorem.sentence(),
+        is_active: is_active_deny,
+        created_at: faker.date.past(),
+      };
+
+      // act
+      const category = new Category(props);
+      category.update(updateProps);
+
+      // assert
+      expect(category.name).toEqual(category.name);
+      expect(category.description).toEqual(updateProps.description);
+      expect(category.created_at).toEqual(category.created_at);
+      expect(category.is_active).toEqual(props.is_active);
+    });
+  });
+
+  describe("activate/deactivate category tests", () => {
+    it("should activate category", () => {
+      // arrange
+      const props: CategoryProperties = {
+        name,
+        description,
+        is_active: false,
+        created_at,
+      };
+
+      // act
+      const category = new Category(props);
+      category.activate();
+
+      // assert
+      expect(category.name).toEqual(category.name);
+      expect(category.description).toEqual(category.description);
+      expect(category.created_at).toEqual(category.created_at);
+      expect(category.is_active).toBeTruthy();
+    });
+
+    it("should deactivate category", () => {
+      // arrange
+      const props: CategoryProperties = {
+        name,
+        description,
+        is_active: true,
+        created_at,
+      };
+
+      // act
+      const category = new Category(props);
+      category.deactivate();
+
+      // assert
+      expect(category.name).toEqual(category.name);
+      expect(category.description).toEqual(category.description);
+      expect(category.created_at).toEqual(category.created_at);
+      expect(category.is_active).toBeFalsy();
+    });
+  });
 });
