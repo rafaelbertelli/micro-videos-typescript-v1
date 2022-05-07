@@ -8,6 +8,11 @@ export type CategoryProperties = {
   created_at?: Date;
 };
 
+export type UpdateCategoryProperties = {
+  name: string;
+  description?: string;
+};
+
 export class Category extends Entity<CategoryProperties> {
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
     super(props, id);
@@ -18,6 +23,10 @@ export class Category extends Entity<CategoryProperties> {
 
   get name(): string {
     return this.props.name;
+  }
+
+  private set name(value: string) {
+    this.props.name = value;
   }
 
   get description(): string | undefined {
@@ -44,10 +53,9 @@ export class Category extends Entity<CategoryProperties> {
     this.props.created_at = value ?? new Date();
   }
 
-  update(props: CategoryProperties): Category {
+  update(props: UpdateCategoryProperties): Category {
     this.description = props.description;
-    this.is_active = props.is_active;
-
+    this.name = props.name;
     return this;
   }
 

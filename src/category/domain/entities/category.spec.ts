@@ -1,6 +1,10 @@
 import { faker } from "@faker-js/faker";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
-import { Category, CategoryProperties } from "./category";
+import {
+  Category,
+  CategoryProperties,
+  UpdateCategoryProperties,
+} from "./category";
 
 describe("Category tests", () => {
   let name: string;
@@ -142,21 +146,44 @@ describe("Category tests", () => {
     });
   });
 
-  describe("update category tests", () => {
-    it("should assert update category", () => {
+  describe("setters tests", () => {
+    it("should assert all setters", () => {
       // arrange
-      const is_active_deny = !is_active;
+      const newDate = new Date();
+      const categoryProperties: CategoryProperties = {
+        name,
+        description,
+        is_active,
+        created_at,
+      };
+
+      // act
+      const category = new Category(categoryProperties);
+      category["name"] = "new name";
+      category["description"] = "new description";
+      category["created_at"] = newDate;
+      category["is_active"] = false;
+
+      // assert
+      expect(category.name).toEqual("new name");
+      expect(category.description).toEqual("new description");
+      expect(category.created_at).toEqual(newDate);
+      expect(category.is_active).toEqual(false);
+    });
+  });
+
+  describe("update category tests", () => {
+    it("should update name and description only", () => {
+      // arrange
       const props: CategoryProperties = {
         name,
         description,
         is_active,
         created_at,
       };
-      const updateProps: CategoryProperties = {
+      const updateProps: UpdateCategoryProperties = {
         name: faker.name.findName(),
         description: faker.lorem.sentence(),
-        is_active: is_active_deny,
-        created_at: faker.date.past(),
       };
 
       // act
@@ -164,9 +191,32 @@ describe("Category tests", () => {
       category.update(updateProps);
 
       // assert
-      expect(category.name).toEqual(category.name);
+      expect(category.name).toEqual(updateProps.name);
       expect(category.description).toEqual(updateProps.description);
-      expect(category.created_at).toEqual(category.created_at);
+      expect(category.created_at).toEqual(props.created_at);
+      expect(category.is_active).toEqual(props.is_active);
+    });
+
+    it("should update name and clean description value", () => {
+      // arrange
+      const props: CategoryProperties = {
+        name,
+        description,
+        is_active,
+        created_at,
+      };
+      const updateProps: UpdateCategoryProperties = {
+        name: faker.name.findName(),
+      };
+
+      // act
+      const category = new Category(props);
+      category.update(updateProps);
+
+      // assert
+      expect(category.name).toEqual(updateProps.name);
+      expect(category.description).toBeNull();
+      expect(category.created_at).toEqual(props.created_at);
       expect(category.is_active).toEqual(props.is_active);
     });
   });
