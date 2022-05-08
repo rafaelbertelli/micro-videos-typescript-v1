@@ -76,7 +76,7 @@ describe("ValidatorRules", () => {
 
     it("should not throw error if value is not empty", () => {
       expect(() => {
-        ValidatorRules.values("rafael", "to").required();
+        ValidatorRules.values("sunday morning", "to").required();
       }).not.toThrowError();
     });
   });
@@ -88,9 +88,15 @@ describe("ValidatorRules", () => {
       }).toThrowError();
     });
 
-    it("should not throw error if value is a string", () => {
+    it("should not throw error if value is a required string", () => {
       expect(() => {
-        ValidatorRules.values("rafael", "to").string();
+        ValidatorRules.values("sunday morning", "to").required().string();
+      }).not.toThrowError();
+    });
+
+    it("should not throw error if value is an empty string", () => {
+      expect(() => {
+        ValidatorRules.values("   ", "to").string();
       }).not.toThrowError();
     });
   });
@@ -98,13 +104,13 @@ describe("ValidatorRules", () => {
   describe("maxLength", () => {
     it("should throw error if value is greater than max", () => {
       expect(() => {
-        ValidatorRules.values("rafael", "to").maxLength(5);
+        ValidatorRules.values("sunday morning", "to").maxLength(5);
       }).toThrowError();
     });
 
     it("should not throw error if value is less than max", () => {
       expect(() => {
-        ValidatorRules.values("rafael", "to").maxLength(10);
+        ValidatorRules.values("sunday morning", "to").maxLength(10);
       }).not.toThrowError();
     });
   });
@@ -112,7 +118,7 @@ describe("ValidatorRules", () => {
   describe("boolean", () => {
     it("should throw error if value is not a boolean", () => {
       expect(() => {
-        ValidatorRules.values("rafael", "to").boolean();
+        ValidatorRules.values("sunday morning", "to").boolean();
       }).toThrowError();
     });
 
@@ -130,14 +136,28 @@ describe("ValidatorRules", () => {
   describe("number", () => {
     it("should throw error if value is not a number", () => {
       expect(() => {
-        ValidatorRules.values("rafael", "to").number();
+        ValidatorRules.values("sunday morning", "to").number();
       }).toThrowError();
     });
 
     it("should not throw error if value is a number", () => {
       expect(() => {
-        ValidatorRules.values(1, "to").number();
+        ValidatorRules.values(0, "to").number();
       }).not.toThrowError();
+    });
+  });
+
+  describe("test usecases with validator-rules", () => {
+    it("should validate examples", () => {
+      expect.assertions(0);
+
+      ValidatorRules.values("sunday morning", "text").required().string();
+      ValidatorRules.values("   ", "empty text").string().maxLength(20);
+      ValidatorRules.values(0, "number").number();
+      ValidatorRules.values(-10, "number").number();
+      ValidatorRules.values(10, "number").number();
+      ValidatorRules.values(true, "boolean").boolean();
+      ValidatorRules.values(false, "boolean").boolean();
     });
   });
 });
