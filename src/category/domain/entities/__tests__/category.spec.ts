@@ -1,73 +1,68 @@
 import { faker } from "@faker-js/faker";
-import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
+import UniqueEntityId from "../../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 import {
   Category,
   CategoryProperties,
   UpdateCategoryProperties,
-} from "./category";
+} from "../category";
 
 describe("Category tests", () => {
   let name: string;
   let description: string;
   let is_active: boolean;
   let created_at: Date;
+  let categoryProperties: CategoryProperties;
 
   beforeEach(() => {
     name = faker.name.findName();
     description = faker.lorem.sentence();
     is_active = faker.datatype.boolean();
     created_at = faker.date.past();
+    categoryProperties = {
+      name,
+      description,
+      is_active,
+      created_at,
+    };
   });
 
   describe("constructor tests", () => {
     it("should assert all constructor categoryProperties", () => {
-      // arrange
-      const categoryProperties: CategoryProperties = {
-        name,
-        description,
-        is_active,
-        created_at,
-      };
-
       // act
       const category = new Category(categoryProperties);
 
       // assert
       expect(category).toBeInstanceOf(Category);
-      expect(category.name).toEqual(name);
-      expect(category.description).toEqual(description);
-      expect(category.is_active).toEqual(is_active);
-      expect(category.created_at).toEqual(created_at);
+      expect(category.name).toEqual(categoryProperties.name);
+      expect(category.description).toEqual(categoryProperties.description);
+      expect(category.is_active).toEqual(categoryProperties.is_active);
+      expect(category.created_at).toEqual(categoryProperties.created_at);
     });
 
     it("should assert all constructor categoryProperties with undefined values", () => {
       // arrange
-      const categoryProperties: CategoryProperties = {
-        name,
-        description,
-        is_active,
-      };
+      categoryProperties = { name, description, is_active };
 
       // act
       const category = new Category(categoryProperties);
 
       // assert
       expect(category).toBeInstanceOf(Category);
-      expect(category.name).toEqual(name);
-      expect(category.description).toEqual(description);
-      expect(category.is_active).toEqual(is_active);
+      expect(category.name).toEqual(categoryProperties.name);
+      expect(category.description).toEqual(categoryProperties.description);
+      expect(category.is_active).toEqual(categoryProperties.is_active);
     });
 
     it("should assert auto fullfil constructor categoryProperties when it is not passed", () => {
       // arrange
-      const categoryProperties: CategoryProperties = { name };
+      categoryProperties = { name };
 
       // act
       const category = new Category(categoryProperties);
 
       // assert
       expect(category).toBeInstanceOf(Category);
-      expect(category.name).toEqual(name);
+      expect(category.name).toEqual(categoryProperties.name);
       expect(category.description).toBeNull();
       expect(category.is_active).toBeTruthy();
       expect(category.created_at).not.toBeUndefined();
@@ -76,11 +71,8 @@ describe("Category tests", () => {
 
     describe("uuid tests", () => {
       it("should auto generate a uuid when it is not passed to contructor", () => {
-        // arrange
-        const categoryProperties: CategoryProperties = { name };
-
         // act
-        const category = new Category(categoryProperties);
+        const category = new Category({ name });
 
         // assert
         expect(category.uniqueEntityId).not.toBeNull();
@@ -88,11 +80,8 @@ describe("Category tests", () => {
       });
 
       it("should auto generate a uuid when it is passed null to contructor", () => {
-        // arrange
-        const categoryProperties: CategoryProperties = { name };
-
         // act
-        const category = new Category(categoryProperties, null);
+        const category = new Category({ name }, null);
 
         // assert
         expect(category.uniqueEntityId).not.toBeNull();
@@ -100,11 +89,8 @@ describe("Category tests", () => {
       });
 
       it("should auto generate a uuid when it is passed undefined to contructor", () => {
-        // arrange
-        const categoryProperties: CategoryProperties = { name };
-
         // act
-        const category = new Category(categoryProperties, undefined);
+        const category = new Category({ name }, undefined);
 
         // assert
         expect(category.uniqueEntityId).not.toBeNull();
@@ -113,11 +99,10 @@ describe("Category tests", () => {
 
       it("should assert uuid received from constructor", () => {
         // arrange
-        const categoryProperties: CategoryProperties = { name };
         const uuid = new UniqueEntityId();
 
         // act
-        const category = new Category(categoryProperties, uuid);
+        const category = new Category({ name }, uuid);
 
         // assert
         expect(category.uniqueEntityId).toEqual(uuid);
@@ -127,22 +112,14 @@ describe("Category tests", () => {
 
   describe("getters tests", () => {
     it("should assert all getters", () => {
-      // arrange
-      const categoryProperties: CategoryProperties = {
-        name,
-        description,
-        is_active,
-        created_at,
-      };
-
       // act
       const category = new Category(categoryProperties);
 
       // assert
-      expect(category.name).toEqual(name);
-      expect(category.description).toEqual(description);
-      expect(category.created_at).toEqual(created_at);
-      expect(category.is_active).toEqual(is_active);
+      expect(category.name).toEqual(categoryProperties.name);
+      expect(category.description).toEqual(categoryProperties.description);
+      expect(category.created_at).toEqual(categoryProperties.created_at);
+      expect(category.is_active).toEqual(categoryProperties.is_active);
     });
   });
 
@@ -150,12 +127,6 @@ describe("Category tests", () => {
     it("should assert all setters", () => {
       // arrange
       const newDate = new Date();
-      const categoryProperties: CategoryProperties = {
-        name,
-        description,
-        is_active,
-        created_at,
-      };
 
       // act
       const category = new Category(categoryProperties);
@@ -175,64 +146,44 @@ describe("Category tests", () => {
   describe("update category tests", () => {
     it("should update name and description only", () => {
       // arrange
-      const props: CategoryProperties = {
-        name,
-        description,
-        is_active,
-        created_at,
-      };
       const updateProps: UpdateCategoryProperties = {
         name: faker.name.findName(),
         description: faker.lorem.sentence(),
       };
 
       // act
-      const category = new Category(props);
+      const category = new Category(categoryProperties);
       category.update(updateProps);
 
       // assert
       expect(category.name).toEqual(updateProps.name);
       expect(category.description).toEqual(updateProps.description);
-      expect(category.created_at).toEqual(props.created_at);
-      expect(category.is_active).toEqual(props.is_active);
+      expect(category.created_at).toEqual(categoryProperties.created_at);
+      expect(category.is_active).toEqual(categoryProperties.is_active);
     });
 
     it("should update name and clean description value", () => {
       // arrange
-      const props: CategoryProperties = {
-        name,
-        description,
-        is_active,
-        created_at,
-      };
       const updateProps: UpdateCategoryProperties = {
         name: faker.name.findName(),
       };
 
       // act
-      const category = new Category(props);
+      const category = new Category(categoryProperties);
       category.update(updateProps);
 
       // assert
       expect(category.name).toEqual(updateProps.name);
       expect(category.description).toBeNull();
-      expect(category.created_at).toEqual(props.created_at);
-      expect(category.is_active).toEqual(props.is_active);
+      expect(category.created_at).toEqual(categoryProperties.created_at);
+      expect(category.is_active).toEqual(categoryProperties.is_active);
     });
   });
 
   describe("activate/deactivate category tests", () => {
     it("should activate category", () => {
-      // arrange
-      const props: CategoryProperties = {
-        name,
-        description,
-        is_active: false,
-        created_at,
-      };
-
       // act
-      const category = new Category(props);
+      const category = new Category(categoryProperties);
       category.activate();
 
       // assert
@@ -243,16 +194,8 @@ describe("Category tests", () => {
     });
 
     it("should deactivate category", () => {
-      // arrange
-      const props: CategoryProperties = {
-        name,
-        description,
-        is_active: true,
-        created_at,
-      };
-
       // act
-      const category = new Category(props);
+      const category = new Category(categoryProperties);
       category.deactivate();
 
       // assert
