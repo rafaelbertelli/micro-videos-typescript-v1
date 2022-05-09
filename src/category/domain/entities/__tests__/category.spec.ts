@@ -14,16 +14,13 @@ describe("Category tests", () => {
   let categoryProperties: CategoryProperties;
 
   beforeEach(() => {
+    Category.validate = jest.fn();
+
     name = faker.name.findName();
     description = faker.lorem.sentence();
     is_active = faker.datatype.boolean();
     created_at = faker.date.past();
-    categoryProperties = {
-      name,
-      description,
-      is_active,
-      created_at,
-    };
+    categoryProperties = { name, description, is_active, created_at };
   });
 
   describe("constructor tests", () => {
@@ -32,6 +29,7 @@ describe("Category tests", () => {
       const category = new Category(categoryProperties);
 
       // assert
+      expect(Category.validate).toHaveBeenCalledWith(categoryProperties);
       expect(category).toBeInstanceOf(Category);
       expect(category.name).toEqual(categoryProperties.name);
       expect(category.description).toEqual(categoryProperties.description);
@@ -75,6 +73,7 @@ describe("Category tests", () => {
         const category = new Category({ name });
 
         // assert
+        expect(Category.validate).toHaveBeenCalledTimes(1);
         expect(category.uniqueEntityId).not.toBeNull();
         expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
       });
@@ -116,6 +115,7 @@ describe("Category tests", () => {
       const category = new Category(categoryProperties);
 
       // assert
+      expect(Category.validate).toHaveBeenCalledTimes(1);
       expect(category.name).toEqual(categoryProperties.name);
       expect(category.description).toEqual(categoryProperties.description);
       expect(category.created_at).toEqual(categoryProperties.created_at);
@@ -136,6 +136,7 @@ describe("Category tests", () => {
       category["is_active"] = false;
 
       // assert
+      expect(Category.validate).toHaveBeenCalledTimes(1);
       expect(category.name).toEqual("new name");
       expect(category.description).toEqual("new description");
       expect(category.created_at).toEqual(newDate);
@@ -156,6 +157,7 @@ describe("Category tests", () => {
       category.update(updateProps);
 
       // assert
+      expect(Category.validate).toHaveBeenCalledTimes(2);
       expect(category.name).toEqual(updateProps.name);
       expect(category.description).toEqual(updateProps.description);
       expect(category.created_at).toEqual(categoryProperties.created_at);
@@ -173,6 +175,7 @@ describe("Category tests", () => {
       category.update(updateProps);
 
       // assert
+      expect(Category.validate).toHaveBeenCalledTimes(2);
       expect(category.name).toEqual(updateProps.name);
       expect(category.description).toBeNull();
       expect(category.created_at).toEqual(categoryProperties.created_at);
@@ -187,6 +190,7 @@ describe("Category tests", () => {
       category.activate();
 
       // assert
+      expect(Category.validate).toHaveBeenCalledTimes(1);
       expect(category.name).toEqual(category.name);
       expect(category.description).toEqual(category.description);
       expect(category.created_at).toEqual(category.created_at);
@@ -199,6 +203,7 @@ describe("Category tests", () => {
       category.deactivate();
 
       // assert
+      expect(Category.validate).toHaveBeenCalledTimes(1);
       expect(category.name).toEqual(category.name);
       expect(category.description).toEqual(category.description);
       expect(category.created_at).toEqual(category.created_at);
