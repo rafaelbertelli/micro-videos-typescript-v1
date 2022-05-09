@@ -19,14 +19,14 @@ export default class ValidatorRules {
   }
 
   string(): ValidatorRules {
-    if (typeof this.value !== "string") {
+    if (!isEmpty(this.value) && typeof this.value !== "string") {
       throw new ValidationError(`${this.property} must be a string`);
     }
     return this;
   }
 
   maxLength(max: number): ValidatorRules {
-    if (this.value.length > max) {
+    if (!isEmpty(this.value) && this.value.length > max) {
       throw new ValidationError(
         `${this.property} must be less than ${max} characters`
       );
@@ -35,14 +35,14 @@ export default class ValidatorRules {
   }
 
   boolean(): ValidatorRules {
-    if (typeof this.value !== "boolean") {
+    if (!isEmpty(this.value) && typeof this.value !== "boolean") {
       throw new ValidationError(`${this.property} must be a boolean`);
     }
     return this;
   }
 
   number(): ValidatorRules {
-    if (typeof this.value !== "number") {
+    if (!isEmpty(this.value) && typeof this.value !== "number") {
       throw new ValidationError(`${this.property} must be a number`);
     }
     return this;
