@@ -110,7 +110,7 @@ describe("ValidatorRules", () => {
 
     it("should not throw error if value is less than max", () => {
       expect(() => {
-        ValidatorRules.values("sunday morning", "to").maxLength(10);
+        ValidatorRules.values("sunday morning", "to").maxLength(15);
       }).not.toThrowError();
     });
   });
