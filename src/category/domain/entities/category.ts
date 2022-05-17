@@ -1,5 +1,6 @@
 import Entity from "../../../@seedwork/domain/entity/entity";
 import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
+import EntityValidationError from "../../../@seedwork/errors/entity-validation-error";
 import CategoryValidatorFactory from "../validators/category.validator";
 
 export type CategoryProperties = {
@@ -57,12 +58,12 @@ export class Category extends Entity<CategoryProperties> {
   }
   // #endregion
 
-  static validate(props: CategoryProperties) {
+  static validate(props: CategoryProperties): boolean {
     const validator = CategoryValidatorFactory.create();
     validator.validate(props);
 
     if (validator.errors) {
-      throw new Error(validator.errors.toString());
+      throw new EntityValidationError(validator.errors.toString());
     }
 
     return true;
