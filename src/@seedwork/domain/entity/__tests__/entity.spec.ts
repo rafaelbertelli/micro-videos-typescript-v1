@@ -38,7 +38,7 @@ describe("Entity", () => {
     const entity = new StubEntity(props, id);
 
     // act
-    const json = entity.toJson();
+    const json = entity.toJSON();
 
     // assert
     expect(json).toStrictEqual({
