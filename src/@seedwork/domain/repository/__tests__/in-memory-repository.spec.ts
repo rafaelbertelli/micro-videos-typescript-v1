@@ -58,13 +58,12 @@ describe("InMemoryRepository", () => {
       const foundEntity = await repo.findById(entity1.id);
       expect(foundEntity).toStrictEqual(entity1);
 
-      const entity1Id = entity1.toJSON().id;
       const updatedEntity = new StubEntity(
         {
           name: "updated name",
           price: 89,
         },
-        new UniqueEntityId(entity1Id)
+        entity1.uniqueEntityId
       );
 
       await repo.update(updatedEntity);
