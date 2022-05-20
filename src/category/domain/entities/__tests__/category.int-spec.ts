@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import EntityValidationError from "../../../../@seedwork/errors/entity-validation-error";
-import { Category, CategoryProperties } from "../category";
+import Category, { CategoryProperties } from "../category";
 
 describe("Category tests", () => {
   let name: string;

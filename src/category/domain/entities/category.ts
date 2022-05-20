@@ -15,7 +15,7 @@ export type UpdateCategoryProperties = {
   description?: string;
 };
 
-export class Category extends Entity<CategoryProperties> {
+export default class Category extends Entity<CategoryProperties> {
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
     Category.validate(props);
     super(props, id);
