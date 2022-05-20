@@ -1,8 +1,8 @@
 import ValueObject from "./value-object";
 
-export type SortDirections = "asc" | "desc";
+type SortDirections = "asc" | "desc";
 
-export type SearchProps<Filter = string> = {
+type SearchProps<Filter = string> = {
   page?: number;
   per_page?: number;
   sort?: string | null;

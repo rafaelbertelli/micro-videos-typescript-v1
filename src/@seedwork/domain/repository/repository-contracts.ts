@@ -1,5 +1,6 @@
 import Entity from "../entity/entity";
-import SearchParams from "../value-objects/search-params-vo";
+import SearchParams from "../value-objects/search-params.vo";
+import SearchResult from "../value-objects/search-result.vo";
 import UniqueEntityId from "../value-objects/unique-entity-id.vo";
 
 export interface RepositoryInterface<E extends Entity> {
@@ -16,8 +17,8 @@ export interface RepositoryInterface<E extends Entity> {
 
 export interface SearchableRepositoryInterface<
   E extends Entity,
-  SearchOutput,
-  SearchInput = SearchParams
+  SearchInput = SearchParams,
+  SearchOutput = SearchResult
 > extends RepositoryInterface<E> {
   search(query: SearchInput): Promise<SearchOutput>;
 }

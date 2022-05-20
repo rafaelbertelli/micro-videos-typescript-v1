@@ -1,4 +1,4 @@
-import SearchParams from "../search-params-vo";
+import SearchParams from "../search-params.vo";
 
 describe("SearchParams", () => {
   describe("page prop", () => {
