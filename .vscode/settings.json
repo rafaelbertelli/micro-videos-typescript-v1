@@ -1,0 +1,23 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#3179c7",
+    "activityBar.activeBorder": "#e699be",
+    "activityBar.background": "#3179c7",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#e699be",
+    "activityBarBadge.foreground": "#15202b",
+    "sash.hoverBorder": "#3179c7",
+    "statusBar.background": "#27609e",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#3179c7",
+    "statusBarItem.remoteBackground": "#27609e",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "titleBar.activeBackground": "#27609e",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#27609e99",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.remoteColor": "#27609e",
+  "terminal.integrated.defaultProfile.linux": "zsh"
+}
