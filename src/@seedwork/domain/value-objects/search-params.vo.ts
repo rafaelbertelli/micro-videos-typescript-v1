@@ -45,7 +45,7 @@ export default class SearchParams extends ValueObject {
     this._per_page = validatedPage;
   }
 
-  get sort(): string {
+  get sort(): string | null {
     return this._sort;
   }
 
@@ -53,11 +53,11 @@ export default class SearchParams extends ValueObject {
     this._sort = value?.toString() || null;
   }
 
-  get sort_dir(): SortDirections {
+  get sort_dir(): string | null {
     return this._sort_dir;
   }
 
-  private set sort_dir(value: SortDirections | null) {
+  private set sort_dir(value: string | null) {
     if (!this.sort) {
       this._sort_dir = null;
     } else {
@@ -66,7 +66,7 @@ export default class SearchParams extends ValueObject {
     }
   }
 
-  get filter(): string {
+  get filter(): string | null {
     return this._filter;
   }
 
