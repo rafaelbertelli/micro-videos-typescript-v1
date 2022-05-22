@@ -17,8 +17,9 @@ export interface RepositoryInterface<E extends Entity> {
 
 export interface SearchableRepositoryInterface<
   E extends Entity,
+  Filter = string,
   SearchInput = SearchParams,
-  SearchOutput = SearchResult
+  SearchOutput = SearchResult<E, Filter>
 > extends RepositoryInterface<E> {
   search(query: SearchInput): Promise<SearchOutput>;
 }
