@@ -1,6 +1,6 @@
 import ValueObject from "./value-object";
 
-type SortDirections = "asc" | "desc";
+export type SortDirections = "asc" | "desc";
 
 type SearchProps<Filter = string> = {
   page?: number;
@@ -53,7 +53,7 @@ export default class SearchParams extends ValueObject {
     this._sort = value?.toString() || null;
   }
 
-  get sort_dir(): string | null {
+  get sort_dir(): SortDirections | null {
     return this._sort_dir;
   }
 
