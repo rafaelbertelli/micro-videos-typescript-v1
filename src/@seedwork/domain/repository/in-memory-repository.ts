@@ -1,6 +1,8 @@
 import NotFoundError from "../../errors/not-found-error";
 import Entity from "../entity/entity";
-import SearchParams from "../value-objects/search-params.vo";
+import SearchParams, {
+  SortDirections,
+} from "../value-objects/search-params.vo";
 import SearchResult from "../value-objects/search-result.vo";
 import UniqueEntityId from "../value-objects/unique-entity-id.vo";
 import {
@@ -51,6 +53,8 @@ export abstract class InMemorySearchableRepository<E extends Entity>
   extends InMemoryRepository<E>
   implements SearchableRepositoryInterface<E>
 {
+  sortableFields: string[] = [];
+
   async search(query: SearchParams): Promise<SearchResult<E>> {
     const filteredItems = await this.applyFilter(this.items, query.filter);
     const sortedItems = await this.applySort(
@@ -80,11 +84,27 @@ export abstract class InMemorySearchableRepository<E extends Entity>
     filter: string | null
   ): Promise<E[]>;
 
-  protected abstract applySort(
+  protected async applySort(
     items: E[],
     sort: string | null,
-    sort_dir: string | null
-  ): Promise<E[]>;
+    sort_dir: SortDirections | null
+  ): Promise<E[]> {
+    if (!(sort || this.sortableFields.includes(sort))) {
+      return items;
+    }
+
+    return [...items].sort((a, b) => {
+      if (a.props[sort] < b.props[sort]) {
+        return sort_dir === "asc" ? -1 : 1;
+      }
+
+      if (a.props[sort] > b.props[sort]) {
+        return sort_dir === "asc" ? 1 : -1;
+      }
+
+      return 0;
+    });
+  }
 
   protected abstract applyPagination(
     items: E[],
