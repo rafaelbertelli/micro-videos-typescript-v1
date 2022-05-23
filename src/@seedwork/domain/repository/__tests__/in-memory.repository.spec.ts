@@ -1,5 +1,5 @@
 import Entity from "../../entity/entity";
-import { InMemoryRepository } from "../in-memory-repository";
+import { InMemoryRepository } from "../in-memory.repository";
 
 type StubEntityProps = {
   name: string;
