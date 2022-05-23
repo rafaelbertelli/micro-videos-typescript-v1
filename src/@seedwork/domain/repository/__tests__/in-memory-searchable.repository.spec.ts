@@ -97,7 +97,47 @@ describe("InMemorySearchableRepository", () => {
     });
   });
 
-  // describe("applySort", () => {});
+  describe("applySort", () => {
+    it("should return all items if sort is empty", async () => {
+      const items = [
+        new StubEntity({ name: "b", price: 2 }),
+        new StubEntity({ name: "a", price: 1 }),
+      ];
+      const spyItemsSort = jest.spyOn(items, "sort" as any);
+      let result: StubEntity[];
+
+      result = await repository["applySort"](items, null, null);
+      expect(result).toStrictEqual(items);
+      expect(spyItemsSort).not.toHaveBeenCalled();
+
+      result = await repository["applySort"](items, "price", "asc");
+      console.log(result);
+
+      expect(result).toStrictEqual([items[1], items[0]]);
+      expect(spyItemsSort).not.toHaveBeenCalled();
+    });
+
+    it("should return sorted items if sort is found", async () => {
+      const items = [
+        new StubEntity({ name: "b", price: 2 }),
+        new StubEntity({ name: "a", price: 1 }),
+        new StubEntity({ name: "c", price: 3 }),
+      ];
+      let result: StubEntity[];
+
+      result = await repository["applySort"](items, "name", "asc");
+      expect(result).toStrictEqual([items[1], items[0], items[2]]);
+
+      result = await repository["applySort"](items, "name", "desc");
+      expect(result).toStrictEqual([items[2], items[0], items[1]]);
+
+      result = await repository["applySort"](items, "price", "asc");
+      expect(result).toStrictEqual([items[1], items[0], items[2]]);
+
+      result = await repository["applySort"](items, "price", "desc");
+      expect(result).toStrictEqual([items[2], items[0], items[1]]);
+    });
+  });
 
   // describe("applyPagination", () => {});
 
