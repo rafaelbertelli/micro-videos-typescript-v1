@@ -1,12 +1,5 @@
 import Entity from "../../entity/entity";
-import searchParamsVo, {
-  SortDirections,
-} from "../../value-objects/search-params.vo";
-import searchResultVo from "../../value-objects/search-result.vo";
-import {
-  InMemoryRepository,
-  InMemorySearchableRepository,
-} from "../in-memory.repository";
+import { InMemorySearchableRepository } from "../in-memory.repository";
 
 type StubEntityProps = {
   name: string;
