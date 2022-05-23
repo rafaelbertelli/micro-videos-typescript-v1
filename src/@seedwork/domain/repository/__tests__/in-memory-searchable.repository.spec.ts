@@ -139,7 +139,33 @@ describe("InMemorySearchableRepository", () => {
     });
   });
 
-  // describe("applyPagination", () => {});
+  describe("applyPagination", () => {
+    it("should return items per page, due to page size", async () => {
+      const items = [
+        new StubEntity({ name: "a", price: 1 }),
+        new StubEntity({ name: "b", price: 2 }),
+        new StubEntity({ name: "c", price: 3 }),
+        new StubEntity({ name: "d", price: 4 }),
+        new StubEntity({ name: "r", price: 5 }),
+      ];
+      let result: StubEntity[];
+
+      result = await repository["applyPagination"](items, 1, 1);
+      expect(result).toStrictEqual([items[0]]);
+
+      result = await repository["applyPagination"](items, 2, 1);
+      expect(result).toStrictEqual([items[1]]);
+
+      result = await repository["applyPagination"](items, 2, 4);
+      expect(result).toStrictEqual([items[4]]);
+
+      result = await repository["applyPagination"](items, 1, 5);
+      expect(result).toStrictEqual(items);
+
+      result = await repository["applyPagination"](items, 4, 5);
+      expect(result).toHaveLength(0);
+    });
+  });
 
   // describe("search", () => {});
 });
