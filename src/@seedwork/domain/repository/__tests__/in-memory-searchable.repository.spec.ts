@@ -1,4 +1,7 @@
+import _ from "lodash";
 import Entity from "../../entity/entity";
+import SearchParams from "../../value-objects/search-params.vo";
+import SearchResult from "../../value-objects/search-result.vo";
 import { InMemorySearchableRepository } from "../in-memory.repository";
 
 type StubEntityProps = {
@@ -55,7 +58,6 @@ describe("InMemorySearchableRepository", () => {
       const spyItemsFilter = jest.spyOn(items, "filter" as any);
 
       const result = await repository["applyFilter"](items, "c");
-      console.log(result);
       expect(result).toHaveLength(0);
       expect(spyItemsFilter).toHaveBeenCalled();
     });
@@ -104,7 +106,6 @@ describe("InMemorySearchableRepository", () => {
       expect(spyItemsSort).not.toHaveBeenCalled();
 
       result = await repository["applySort"](items, "price", "asc");
-      console.log(result);
 
       expect(result).toStrictEqual([items[1], items[0]]);
       expect(spyItemsSort).not.toHaveBeenCalled();
@@ -160,5 +161,104 @@ describe("InMemorySearchableRepository", () => {
     });
   });
 
-  // describe("search", () => {});
+  describe("search", () => {
+    it("should assert search using default SearchParams", async () => {
+      const entity = new StubEntity({ name: "a", price: 1 });
+      const items = Array(16).fill(entity);
+
+      repository.items = items;
+      const result = await repository.search(new SearchParams());
+
+      expect(result.toJSON()).toStrictEqual(
+        new SearchResult({
+          items: Array(15).fill(entity),
+          total: 16,
+          current_page: 1,
+          per_page: 15,
+          sort: null,
+          sort_dir: null,
+          filter: null,
+        }).toJSON()
+      );
+    });
+
+    it("should assert search with fulfilled SearchParams", async () => {
+      const items = [
+        new StubEntity({ name: "test", price: 5 }),
+        new StubEntity({ name: "a", price: 5 }),
+        new StubEntity({ name: "A", price: 5 }),
+        new StubEntity({ name: "TEST", price: 5 }),
+        new StubEntity({ name: "fake", price: 0 }),
+        new StubEntity({ name: "TesT", price: 0 }),
+      ];
+
+      repository.items = items;
+
+      let result: any = (
+        await repository.search(
+          new SearchParams({ page: 2, per_page: 2, filter: "TEST" })
+        )
+      ).toJSON();
+      result = _.omit(result, ["items"]);
+
+      let expected: any = new SearchResult({
+        items: [items[2]],
+        total: 3,
+        current_page: 2,
+        per_page: 2,
+        sort: null,
+        sort_dir: null,
+        filter: "TEST",
+      }).toJSON();
+      expected = _.omit(expected, ["items"]);
+
+      expect(result).toStrictEqual(expected);
+    });
+
+    it("should assert search with fulfilled SearchParams with sort asc", async () => {
+      const items = [
+        new StubEntity({ name: "b", price: 5 }),
+        new StubEntity({ name: "c", price: 5 }),
+        new StubEntity({ name: "a", price: 5 }),
+      ];
+
+      repository.items = items;
+
+      const result: any = (
+        await repository.search(
+          new SearchParams({
+            page: 1,
+            per_page: 3,
+            sort: "name",
+            sort_dir: "asc",
+          })
+        )
+      ).toJSON();
+
+      expect(result.items).toStrictEqual([items[2], items[0], items[1]]);
+    });
+
+    it("should assert search with fulfilled SearchParams with sort desc", async () => {
+      const items = [
+        new StubEntity({ name: "b", price: 5 }),
+        new StubEntity({ name: "c", price: 5 }),
+        new StubEntity({ name: "a", price: 5 }),
+      ];
+
+      repository.items = items;
+
+      const result: any = (
+        await repository.search(
+          new SearchParams({
+            page: 1,
+            per_page: 3,
+            sort: "name",
+            sort_dir: "desc",
+          })
+        )
+      ).toJSON();
+
+      expect(result.items).toStrictEqual([items[1], items[0], items[2]]);
+    });
+  });
 });
