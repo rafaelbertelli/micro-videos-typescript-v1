@@ -1,21 +1,22 @@
 import { SearchableRepositoryInterface } from "../../../@seedwork/domain/repository/repository-contracts";
-import SearchParams from "../../../@seedwork/domain/value-objects/search-params.vo";
-import SearchResult from "../../../@seedwork/domain/value-objects/search-result.vo";
+import { default as SearchParamsVO } from "../../../@seedwork/domain/value-objects/search-params.vo";
+import { default as SearchResultVO } from "../../../@seedwork/domain/value-objects/search-result.vo";
 import Category from "../entities/category";
 
-export type CategoryFilter = string;
+namespace CategoryRepository {
+  export type Filter = string;
 
-export class CategorySearchParams extends SearchParams<CategoryFilter> {}
+  export class SearchParams extends SearchParamsVO<Filter> {}
 
-export class CategorySearchResult extends SearchResult<
-  Category,
-  CategoryFilter
-> {}
+  export class SearchResult extends SearchResultVO<Category, Filter> {}
 
-export default interface CategoryRepository
-  extends SearchableRepositoryInterface<
-    Category,
-    CategoryFilter,
-    CategorySearchParams,
-    CategorySearchResult
-  > {}
+  export interface Repository
+    extends SearchableRepositoryInterface<
+      Category,
+      Filter,
+      SearchParams,
+      SearchResult
+    > {}
+}
+
+export default CategoryRepository;
