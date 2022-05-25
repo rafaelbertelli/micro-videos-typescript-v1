@@ -10,14 +10,14 @@ type SearchProps<Filter = string> = {
   filter?: Filter | null;
 };
 
-export default class SearchParams extends ValueObject {
+export default class SearchParams<Filter = string> extends ValueObject {
   protected _page: number = 1;
   protected _per_page: number = 15;
   protected _sort: string | null;
   protected _sort_dir: SortDirections | null;
-  protected _filter: string | null;
+  protected _filter: Filter | null;
 
-  constructor(props: SearchProps = {}) {
+  constructor(props: SearchProps<Filter> = {}) {
     super(props);
     this.page = props.page;
     this.per_page = props.per_page;
@@ -66,12 +66,12 @@ export default class SearchParams extends ValueObject {
     }
   }
 
-  get filter(): string | null {
+  get filter(): Filter | null {
     return this._filter;
   }
 
-  private set filter(value: string | null) {
-    this._filter = value?.toString() || null;
+  private set filter(value: Filter | null) {
+    this._filter = (value?.toString() as any) || null;
   }
   // #endregion
 
