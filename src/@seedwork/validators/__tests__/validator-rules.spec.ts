@@ -147,7 +147,7 @@ describe("ValidatorRules", () => {
     });
   });
 
-  describe("test usecases with validator-rules", () => {
+  describe("test use-cases with validator-rules", () => {
     it("should validate examples", () => {
       expect.assertions(0);
 

@@ -1,5 +1,5 @@
 import CategoryInMemoryRepository from "../../../infra/category-in-memory.repository";
-import CreateCategoryUseCase from "../create-category.usecase";
+import CreateCategoryUseCase from "../create-category.use-case";
 
 describe("CreateCategoryUseCase", () => {
   let usecase: CreateCategoryUseCase;
