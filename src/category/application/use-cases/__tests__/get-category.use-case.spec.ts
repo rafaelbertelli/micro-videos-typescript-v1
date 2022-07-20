@@ -1,39 +1,39 @@
-import CategoryInMemoryRepository from "../../../infra/category-in-memory.repository";
-import CreateCategoryUseCase from "../create-category.use-case";
-import GetCategoryUseCase from "../get-category.use-case";
-import UniqueEntityId from "../../../../@seedwork/domain/value-objects/unique-entity-id.vo";
 import NotFoundError from "../../../../@seedwork/errors/not-found-error";
 import Category from "../../../domain/entities/category";
+import CategoryInMemoryRepository from "../../../infra/category-in-memory.repository";
+import GetCategoryUseCase from "../get-category.use-case";
 
 describe("GetCategoryUseCase", () => {
-  let createCategoryUseCase: CreateCategoryUseCase;
-  let getCategoryUseCase: GetCategoryUseCase;
+  let usecase: GetCategoryUseCase;
   let repository: CategoryInMemoryRepository;
-  const id1 = new UniqueEntityId();
-  const id2 = new UniqueEntityId();
 
-  beforeEach(async () => {
+  beforeEach(() => {
     repository = new CategoryInMemoryRepository();
-    getCategoryUseCase = new GetCategoryUseCase(repository);
+    usecase = new GetCategoryUseCase(repository);
   });
 
-  it("should throw an error if id is not a valid uuid", async () => {
-    const input = {
-      id: "invalid-id",
-    };
+  it("should throw error when entity is not found", async () => {
+    await usecase.execute({ id: "1" }).catch((error) => {
+      expect(error).toBeInstanceOf(NotFoundError);
+    });
 
-    await expect(getCategoryUseCase.execute(input)).rejects.toThrow(
-      new NotFoundError("Entity with id invalid-id not found")
+    await expect(() => usecase.execute({ id: "1" })).rejects.toThrow(
+      NotFoundError
     );
   });
 
-  it("should get a category", async () => {
-    const items = [new Category({ name: "Test" })];
-    repository.items = items;
+  it("should return a category", async () => {
+    const items = [
+      new Category({ name: "Test1", description: "Test1", is_active: true }),
+      new Category({ name: "Test2", description: "Test2", is_active: true }),
+    ];
 
-    const output = await getCategoryUseCase.execute({ id: items[0].id });
+    repository.items = items;
+    const spyFindById = jest.spyOn(repository, "findById");
+    const output = await usecase.execute({ id: items[0].id });
     const repositoryOutput = repository.items[0];
 
+    expect(spyFindById).toHaveBeenCalledTimes(1);
     expect(output.id).toBe(repositoryOutput.id);
     expect(output.name).toBe(repositoryOutput.name);
     expect(output.description).toBe(repositoryOutput.description);
