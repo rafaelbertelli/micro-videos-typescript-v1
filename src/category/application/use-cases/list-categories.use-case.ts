@@ -17,19 +17,13 @@ export default class ListCategoriesUseCase implements IUseCase<Input, Output> {
   }
 
   private toOutput(searchResult: CategoryRepository.SearchResult): Output {
-    const toPaginationOutput: PaginationOutputDto =
+    const toPaginationOutput =
       PaginationOutputMapper.toPaginationOutput(searchResult);
 
-    const toCategoryOutput: CategoryOutput[] = searchResult.items.map(
-      (category) => CategoryOutputMapper.toCategoryOutput(category)
-    );
-
-    const toCategoriesOutput: { items: CategoryOutput[] } = {
-      items: toCategoryOutput,
-    };
+    const items = searchResult.items.map(CategoryOutputMapper.toCategoryOutput);
 
     return {
-      ...toCategoriesOutput,
+      items,
       ...toPaginationOutput,
     };
   }
