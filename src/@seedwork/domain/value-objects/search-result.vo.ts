@@ -12,7 +12,7 @@ type SearchProps<E extends Entity, Filter> = {
 };
 
 export default class SearchResult<
-  E extends Entity,
+  E extends Entity = Entity,
   Filter = string
 > extends ValueObject {
   readonly items: E[];
