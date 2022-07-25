@@ -2,7 +2,7 @@ import { PaginationOutputDto } from "../../../@seedwork/application/dto/paginati
 import { SearchInputDto } from "../../../@seedwork/application/dto/search-input.dto";
 import PaginationOutputMapper from "../../../@seedwork/application/mapper/pagination-output.mapper";
 import IUseCase from "../../../@seedwork/application/use-case.interface";
-import CategoryRepository from "../../domain/repository/category.repository";
+import { CategoryRepository } from "../../domain/repository/category.repository";
 import { CategoryOutput } from "../dto/category-output.dto";
 import CategoryOutputMapper from "../mapper/category-output.mapper";
 

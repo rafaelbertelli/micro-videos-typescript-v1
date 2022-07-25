@@ -3,7 +3,7 @@ import { default as SearchParamsVO } from "../../../@seedwork/domain/value-objec
 import { default as SearchResultVO } from "../../../@seedwork/domain/value-objects/search-result.vo";
 import Category from "../entities/category";
 
-namespace CategoryRepository {
+export namespace CategoryRepository {
   export type Filter = string;
 
   export class SearchParams extends SearchParamsVO<Filter> {}
@@ -18,5 +18,3 @@ namespace CategoryRepository {
       SearchResult
     > {}
 }
-
-export default CategoryRepository;
