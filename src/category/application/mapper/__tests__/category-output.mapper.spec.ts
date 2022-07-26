@@ -11,7 +11,7 @@ describe("CategoryOutputMapper", () => {
     });
 
     const spyToJSON = jest.spyOn(category, "toJSON");
-    const output = CategoryOutputMapper.toCategoryOutput(category);
+    const output = CategoryOutputMapper.toOutput(category);
     const categoryJson = category.toJSON();
 
     expect(spyToJSON).toHaveBeenCalled();

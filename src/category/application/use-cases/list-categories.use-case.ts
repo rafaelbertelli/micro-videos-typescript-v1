@@ -18,7 +18,7 @@ export default class ListCategoriesUseCase implements IUseCase<Input, Output> {
 
   private toOutput(searchResult: CategoryRepository.SearchResult): Output {
     const toPaginationOutput = PaginationOutputMapper.toOutput(searchResult);
-    const items = searchResult.items.map(CategoryOutputMapper.toCategoryOutput);
+    const items = searchResult.items.map(CategoryOutputMapper.toOutput);
 
     return {
       items,
