@@ -64,4 +64,62 @@ describe("UpdateCategoryUseCase", () => {
     expect(updatedCategory.description).toBe("Category 1 description updated");
     expect(updatedCategory.is_active).toBeFalsy();
   });
+
+  it("should update a category persisting its is_active as true", async () => {
+    const category = new Category({
+      name: "Category 1",
+      description: "Category 1 description",
+      is_active: true,
+    });
+
+    repository.items = [category];
+
+    const updatedCategory = await usecase.execute({
+      id: category.id,
+      name: "Category 1 updated",
+      description: "Category 1 description updated",
+    });
+
+    expect(updatedCategory.name).toBe("Category 1 updated");
+    expect(updatedCategory.description).toBe("Category 1 description updated");
+    expect(updatedCategory.is_active).toBeTruthy();
+  });
+
+  it("should update a category persisting its is_active as false", async () => {
+    const category = new Category({
+      name: "Category 1",
+      description: "Category 1 description",
+      is_active: false,
+    });
+
+    repository.items = [category];
+
+    const updatedCategory = await usecase.execute({
+      id: category.id,
+      name: "Category 1 updated",
+      description: "Category 1 description updated",
+    });
+
+    expect(updatedCategory.name).toBe("Category 1 updated");
+    expect(updatedCategory.description).toBe("Category 1 description updated");
+    expect(updatedCategory.is_active).toBeFalsy();
+  });
+
+  it("should update a category setting descriptions to null when it is not defined", async () => {
+    const category = new Category({
+      name: "Category 1",
+      description: "Category 1 description",
+    });
+
+    repository.items = [category];
+
+    const updatedCategory = await usecase.execute({
+      id: category.id,
+      name: "Category 1 updated",
+      description: null,
+    });
+
+    expect(updatedCategory.name).toBe("Category 1 updated");
+    expect(updatedCategory.description).toBeNull();
+  });
 });
