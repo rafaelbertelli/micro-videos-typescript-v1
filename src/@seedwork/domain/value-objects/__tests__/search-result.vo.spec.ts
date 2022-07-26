@@ -25,7 +25,7 @@ describe("SearchResult", () => {
 
   it("should assert constructor with possible fulfilled cases", () => {
     const params = {
-      items: faker.random.arrayElements([
+      items: faker.helpers.arrayElement([
         faker.lorem.word(),
         faker.lorem.word(),
         faker.lorem.word(),
@@ -34,7 +34,7 @@ describe("SearchResult", () => {
       current_page: faker.datatype.number(),
       per_page: faker.datatype.number(),
       sort: faker.lorem.word(),
-      sort_dir: faker.random.arrayElement(["asc", "desc"]),
+      sort_dir: faker.helpers.arrayElement(["asc", "desc"]),
       filter: faker.lorem.words(),
     };
     const last_page = lastPage(params.total, params.per_page);
