@@ -6,6 +6,7 @@
   "scripts": {
     "ts-node": "ts-node",
     "tsc": "tsc",
+    "tsc:check": "npm run tsc -- --noEmit",
     "clean:tsc": "rm tsconfig.tsbuildinfo",
     "clean:all": "rm -rf node_modules && rm package-lock.json && && rm -rf coverage",
     "test:cov": "jest --coverage",
