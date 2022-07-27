@@ -5,7 +5,17 @@ const lastPage = (total: number, perPage: number) => Math.ceil(total / perPage);
 
 describe("SearchResult", () => {
   it("should assert constructor with possible null cases", () => {
-    const params = {
+    type Params = {
+      items: any[];
+      total: number;
+      current_page: number;
+      per_page: number;
+      sort: string | null;
+      sort_dir: string | null;
+      filter: string | null;
+    };
+
+    const params: Params = {
       items: [],
       total: faker.datatype.number(),
       current_page: faker.datatype.number(),
