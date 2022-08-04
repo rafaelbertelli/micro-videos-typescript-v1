@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "tsc:check": "npm run tsc -- --noEmit",
     "clean:tsc": "rm tsconfig.tsbuildinfo",
-    "clean:all": "rm -rf node_modules && rm package-lock.json && && rm -rf coverage",
+    "clean:all": "rm -rf node_modules && rm package-lock.json && rm -rf coverage",
     "test:cov": "jest --coverage",
     "test:watch": "jest --watch",
     "test": "jest"
@@ -31,5 +31,9 @@
   "dependencies": {
     "class-validator": "^0.13.2",
     "uuid": "^8.3.2"
+  },
+  "imports": {
+    "#seedwork/*": "./dist/@seedwork/*.js",
+    "#category/*": "./dist/category/*.js"
   }
 }
