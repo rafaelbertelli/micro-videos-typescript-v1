@@ -42,6 +42,6 @@ npm install           # executa a instalação do projeto
 Havendo necessidade de atualizar os arquivos `index.ts` que definem a exportação absoluta das pastas do módulo `core` para que possam ser importadas dentro do modulo `nest`, dê permissão e execute o comando:
 
 ```bash
-chmod +x ./script/cti.sh
+sudo chmod +x ./scripts/cti.sh
 npm run cti:@core
 ```
