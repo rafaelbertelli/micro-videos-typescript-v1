@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import InvalidUuidError from "../../../errors/invalid-uuid-error";
+import InvalidUuidError from "../../errors/invalid-uuid-error";
 import UniqueEntityId from "../unique-entity-id.vo";
 
 describe("Unique Entity Id Value Object", () => {
