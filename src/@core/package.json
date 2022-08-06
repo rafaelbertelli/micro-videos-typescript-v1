@@ -1,7 +1,7 @@
 {
-  "name": "micro-videos",
-  "version": "1.0.0",
-  "description": "Micro serviço do admin de gerenciamento de vídeos",
+  "name": "micro-videos-typescript-core",
+  "version": "0.0.1",
+  "description": "Core application from micro-videos api",
   "main": "index.js",
   "scripts": {
     "ts-node": "ts-node",

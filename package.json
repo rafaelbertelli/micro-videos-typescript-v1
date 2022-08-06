@@ -1,0 +1,21 @@
+{
+  "name": "micro-videos-typescript",
+  "version": "0.1.0",
+  "description": "Micro serviço do admin de gerenciamento de vídeos",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafaelbertelli/micro-videos-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafaelbertelli/micro-videos-typescript/issues"
+  },
+  "homepage": "https://github.com/rafaelbertelli/micro-videos-typescript#readme",
+  "workspaces": [
+    "./src/@core",
+    "./src/nestjs"
+  ]
+}
