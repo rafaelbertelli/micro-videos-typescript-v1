@@ -17,5 +17,8 @@
   "workspaces": [
     "./src/@core",
     "./src/nestjs"
-  ]
+  ],
+  "scripts": {
+    "tests": "npm run test --workspaces"
+  }
 }
