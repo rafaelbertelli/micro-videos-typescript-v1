@@ -12,7 +12,15 @@ This is a monorepo project splited into a core named `@core` and a external laye
 
 This monorepo is based at the [new npm feature workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) that allows to configure several projects to be executed from a single entry point
 
-## Project installation
+## Docker: Installations and execution
+
+```bash
+sudo chmod +x .docker/start.sh
+docker-compose up --build -d    # build a new container
+docker-compose exec app bash    # access docker container
+```
+
+## Manual project installation
 
 ```bash
 npm install     # install all projects dependencies
