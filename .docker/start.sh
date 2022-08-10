@@ -2,4 +2,6 @@
 
 npm install
 
-tail -f /dev/null
+npm run start:dev
+
+# tail -f /dev/null
