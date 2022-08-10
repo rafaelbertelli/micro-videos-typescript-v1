@@ -19,6 +19,7 @@
     "./src/nestjs"
   ],
   "scripts": {
-    "tests": "npm run test --workspaces"
+    "tests": "npm run test --workspaces",
+    "start:dev": "npm run start:dev -w micro-videos-typescript-nestjs"
   }
 }
