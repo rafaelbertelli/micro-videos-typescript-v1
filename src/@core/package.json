@@ -1,5 +1,5 @@
 {
-  "name": "micro-videos-typescript-core",
+  "name": "mvt-core",
   "version": "0.0.1",
   "description": "Core application from micro-videos api",
   "main": "index.js",

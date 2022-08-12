@@ -30,8 +30,8 @@ npm install <npm_package> --workspace <project_name_from_package_json>    # inst
 exemples:
 
 ```bash
-npm i axios -w micro-videos-typescript-core
-npm i axios -w micro-videos-typescript-nestjs
+npm i axios -w mvt-core
+npm i axios -w mvt-nest
 ```
 
 ## Executing project script
@@ -45,8 +45,8 @@ npm run <script> -w <project_name_from_package_json>
 exemples:
 
 ```bash
-npm run test:watch -w micro-videos-typescript-core
-npm run test:cov -w micro-videos-typescript-nestjs
+npm run test:watch -w mvt-core
+npm run test:cov -w mvt-nest
 ```
 
 ### To all projects

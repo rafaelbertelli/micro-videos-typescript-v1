@@ -20,6 +20,6 @@
   ],
   "scripts": {
     "tests": "npm run test --workspaces",
-    "start:dev": "npm run start:dev -w micro-videos-typescript-nestjs"
+    "start:dev": "npm run start:dev -w mvt-nest"
   }
 }
