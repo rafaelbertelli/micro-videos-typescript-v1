@@ -1,5 +1,5 @@
-import Category from "../../../domain/entities/category";
-import CategoryOutputMapper from "../category-output.mapper";
+import { Category } from "../../../domain/entities/category";
+import { CategoryOutputMapper } from "../category-output.mapper";
 
 describe("CategoryOutputMapper", () => {
   it("should return a mapped category", () => {

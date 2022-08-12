@@ -1,4 +1,4 @@
-import EntityValidationError from "../entity-validation-error";
+import { EntityValidationError } from "../entity-validation-error";
 
 describe("EntityValidationError", () => {
   it("should assert error", () => {

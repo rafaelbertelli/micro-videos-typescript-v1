@@ -1,7 +1,7 @@
-import { SearchableRepositoryInterface } from "../../../@seedwork/domain/repository/repository-contracts";
-import { default as SearchParamsVO } from "../../../@seedwork/domain/value-objects/search-params.vo";
-import { default as SearchResultVO } from "../../../@seedwork/domain/value-objects/search-result.vo";
-import Category from "../entities/category";
+import { SearchableRepositoryInterface } from "#seedwork/domain/repository/repository-contracts";
+import { SearchParams as SearchParamsVO } from "#seedwork/domain/value-objects/search-params.vo";
+import { SearchResult as SearchResultVO } from "#seedwork/domain/value-objects/search-result.vo";
+import { Category } from "../entities/category";
 
 export namespace CategoryRepository {
   export type Filter = string;

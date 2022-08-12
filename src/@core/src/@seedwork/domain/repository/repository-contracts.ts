@@ -1,7 +1,7 @@
-import Entity from "../entity/entity";
-import SearchParams from "../value-objects/search-params.vo";
-import SearchResult from "../value-objects/search-result.vo";
-import UniqueEntityId from "../value-objects/unique-entity-id.vo";
+import { Entity } from "../entity/entity";
+import { SearchParams } from "../value-objects/search-params.vo";
+import { SearchResult } from "../value-objects/search-result.vo";
+import { UniqueEntityId } from "../value-objects/unique-entity-id.vo";
 
 export interface RepositoryInterface<E extends Entity> {
   insert(entity: E): Promise<void>;

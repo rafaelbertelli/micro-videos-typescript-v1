@@ -1,7 +1,7 @@
-import IUseCase from "../../../@seedwork/application/use-case.interface";
+import { IUseCase } from "#seedwork/application/use-case.interface";
 import { CategoryRepository } from "../../domain/repository/category.repository";
 
-export default class DeleteCategoryUseCase implements IUseCase<Input, Output> {
+export class DeleteCategoryUseCase implements IUseCase<Input, Output> {
   constructor(private repository: CategoryRepository.Repository) {}
 
   async execute(input: Input): Promise<Output> {

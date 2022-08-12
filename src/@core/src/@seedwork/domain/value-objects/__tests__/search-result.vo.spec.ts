@@ -1,4 +1,4 @@
-import SearchResult from "../search-result.vo";
+import { SearchResult } from "../search-result.vo";
 import { faker } from "@faker-js/faker";
 
 const lastPage = (total: number, perPage: number) => Math.ceil(total / perPage);

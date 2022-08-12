@@ -1,4 +1,4 @@
-import CategoryValidatorFactory from "../category.validator";
+import { CategoryValidatorFactory } from "../category.validator";
 
 describe("Category validator tests", () => {
   describe("property name", () => {

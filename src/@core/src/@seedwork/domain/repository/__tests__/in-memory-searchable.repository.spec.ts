@@ -1,7 +1,7 @@
 import _ from "lodash";
-import Entity from "../../entity/entity";
-import SearchParams from "../../value-objects/search-params.vo";
-import SearchResult from "../../value-objects/search-result.vo";
+import { Entity } from "../../entity/entity";
+import { SearchParams } from "../../value-objects/search-params.vo";
+import { SearchResult } from "../../value-objects/search-result.vo";
 import { InMemorySearchableRepository } from "../in-memory.repository";
 
 type StubEntityProps = {

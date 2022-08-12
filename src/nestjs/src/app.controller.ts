@@ -1,7 +1,9 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
-// import Category from 'micro-videos-typescript-core/category/domain';
+// import Category from 'mvt-core/category/domain';
+
+// import CreateCategoryUseCase from 'mvt-core/dist/category/application';
 
 @Controller()
 export class AppController {

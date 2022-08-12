@@ -1,9 +1,9 @@
-import { InMemorySearchableRepository } from "../../@seedwork/domain/repository/in-memory.repository";
-import { SortDirections } from "../../@seedwork/domain/value-objects/search-params.vo";
-import Category from "../domain/entities/category";
+import { InMemorySearchableRepository } from "#seedwork/domain/repository/in-memory.repository";
+import { SortDirections } from "#seedwork/domain/value-objects/search-params.vo";
+import { Category } from "../domain/entities/category";
 import { CategoryRepository } from "../domain/repository/category.repository";
 
-export default class CategoryInMemoryRepository
+export class CategoryInMemoryRepository
   extends InMemorySearchableRepository<Category>
   implements CategoryRepository.Repository
 {

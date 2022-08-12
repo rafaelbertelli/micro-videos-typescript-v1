@@ -1,7 +1,7 @@
-import ValidationError from "../errors/validation-error";
+import { ValidationError } from "../errors/validation-error";
 import { isEmpty } from "./empty-validation";
 
-export default class ValidatorRules {
+export class ValidatorRules {
   private constructor(private value: any, private property: string) {
     this.value = value;
     this.property = property;

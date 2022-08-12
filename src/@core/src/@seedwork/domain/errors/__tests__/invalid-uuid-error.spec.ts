@@ -1,4 +1,4 @@
-import InvalidUuidError from "../invalid-uuid-error";
+import { InvalidUuidError } from "../invalid-uuid-error";
 
 describe("InvalidUuidError", () => {
   it("should assert error", () => {

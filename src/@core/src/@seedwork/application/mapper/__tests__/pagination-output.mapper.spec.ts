@@ -1,4 +1,4 @@
-import PaginationOutputMapper from "../pagination-output.mapper";
+import { PaginationOutputMapper } from "../pagination-output.mapper";
 
 describe("PaginationOutputMapper", () => {
   it("should return a mapped pagination", () => {

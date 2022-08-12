@@ -1,7 +1,7 @@
+import { Category } from "../../../category/domain/entities/category";
 import { CategoryOutput } from "../dto/category-output.dto";
-import Category from "../../../category/domain/entities/category";
 
-export default class CategoryOutputMapper {
+export class CategoryOutputMapper {
   static toOutput(category: Category): CategoryOutput {
     return category.toJSON();
   }

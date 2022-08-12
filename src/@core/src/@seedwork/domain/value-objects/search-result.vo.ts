@@ -1,5 +1,5 @@
-import Entity from "../entity/entity";
-import ValueObject from "./value-object";
+import { Entity } from "../entity/entity";
+import { ValueObject } from "./value-object";
 
 type SearchProps<E extends Entity, Filter> = {
   items: E[];
@@ -11,7 +11,7 @@ type SearchProps<E extends Entity, Filter> = {
   filter: Filter | null;
 };
 
-export default class SearchResult<
+export class SearchResult<
   E extends Entity = Entity,
   Filter = string
 > extends ValueObject {

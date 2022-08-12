@@ -1,6 +1,7 @@
+import { UniqueEntityId } from "#seedwork/domain/value-objects/unique-entity-id.vo";
 import { faker } from "@faker-js/faker";
-import UniqueEntityId from "../../../../@seedwork/domain/value-objects/unique-entity-id.vo";
-import Category, {
+import {
+  Category,
   CategoryProperties,
   UpdateCategoryProperties,
 } from "../category";

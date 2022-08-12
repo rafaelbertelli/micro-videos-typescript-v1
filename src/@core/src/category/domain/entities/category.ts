@@ -1,7 +1,7 @@
-import Entity from "../../../@seedwork/domain/entity/entity";
-import UniqueEntityId from "../../../@seedwork/domain/value-objects/unique-entity-id.vo";
-import EntityValidationError from "../../../@seedwork/domain/errors/entity-validation-error";
-import CategoryValidatorFactory from "../validators/category.validator";
+import { Entity } from "#seedwork/domain/entity/entity";
+import { EntityValidationError } from "#seedwork/domain/errors/entity-validation-error";
+import { UniqueEntityId } from "#seedwork/domain/value-objects/unique-entity-id.vo";
+import { CategoryValidatorFactory } from "../validators/category.validator";
 
 export type CategoryProperties = {
   name: string;
@@ -15,7 +15,7 @@ export type UpdateCategoryProperties = {
   description?: string;
 };
 
-export default class Category extends Entity<CategoryProperties> {
+export class Category extends Entity<CategoryProperties> {
   constructor(public readonly props: CategoryProperties, id?: UniqueEntityId) {
     Category.validate(props);
     super(props, id);

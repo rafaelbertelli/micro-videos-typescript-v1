@@ -1,6 +1,6 @@
 import { PaginationOutputDto } from "../dto/pagination-output.dto";
 
-export default class PaginationOutputMapper {
+export class PaginationOutputMapper {
   static toOutput(result: PaginationOutputDto): PaginationOutputDto {
     return {
       total: result.total,

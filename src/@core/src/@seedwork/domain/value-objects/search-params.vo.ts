@@ -1,4 +1,4 @@
-import ValueObject from "./value-object";
+import { ValueObject } from "./value-object";
 
 export type SortDirections = "asc" | "desc";
 
@@ -10,7 +10,7 @@ type SearchProps<Filter = string> = {
   filter?: Filter | null;
 };
 
-export default class SearchParams<Filter = string> extends ValueObject {
+export class SearchParams<Filter = string> extends ValueObject {
   protected _page: number = 1;
   protected _per_page: number = 15;
   protected _sort: string | null;

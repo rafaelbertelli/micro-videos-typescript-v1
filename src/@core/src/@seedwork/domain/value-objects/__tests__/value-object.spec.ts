@@ -1,4 +1,4 @@
-import ValueObject from "../value-object";
+import { ValueObject } from "../value-object";
 
 describe("Value Object abstract class", () => {
   class StubValueObject extends ValueObject {}
