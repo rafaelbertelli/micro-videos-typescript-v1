@@ -1,21 +1,27 @@
-# COMMANDS TO ALL PROJECTS
-
-test-all:
-	@npm run test --workspaces
-
-
-# COMMANDS TO '@core' PROJECT
-
-build-core:
+buildCore:
 	@npm run build -w mvt-core
 
-test-core:
+buildNestjs:
+	@npm run build -w mvt-nest
+	
+clean:
+	@rm -rf node_modules
+	@rm -rf ./src/@core/dist
+	@rm -rf ./src/@core/node_modules
+	@rm -rf ./src/nestjs/dist
+	@rm -rf ./src/nestjs/node_modules
+
+install:
+	@npm install
+
+startDev:
+	@npm run start:dev
+
+testAll:
+	@npm run tests
+
+testCore:
 	@npm run test -w mvt-core
 
-# COMMANDS TO 'nestjs' PROJECT
-
-build-nestjs:
-	@npm run build -w mvt-nest
-
-start-dev-nestjs:
-	@npm run start:dev -w mvt-nest
+testNest:
+	@npm run test -w mvt-nest
