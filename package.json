@@ -19,7 +19,7 @@
     "./src/nestjs"
   ],
   "scripts": {
-    "tests": "npm run test --workspaces",
+    "test": "npm run test --workspaces",
     "prestart:dev": "npm run build -w mvt-core",
     "start:dev": "npm run build:watch -w mvt-core & npm run start:dev -w mvt-nest"
   }

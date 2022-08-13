@@ -18,7 +18,7 @@ startDev:
 	@npm run start:dev
 
 testAll:
-	@npm run tests
+	@npm run test
 
 testCore:
 	@npm run test -w mvt-core
