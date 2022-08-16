@@ -2,39 +2,11 @@
 
 `@core` is the core application from the micro-servise micro-videos management system.
 
-## Run with Docker
+This app is installed and executed from the [root folder](../../README.md), but if necessary it can be run from this point:
 
 ```bash
-docker-compose up --build -d    # build a new container
-docker-compose exec app bash    # access docker container
-```
-
-### Tip: VSCode Remote container
-
-This project can be run through the vscode remote-container extension
-
----
-
-## Manual commands
-
-### Housekeeping
-
-```bash
-npm run clean:tsc     # remove TS compilation file
-npm run clean:all     # remove volatile files and folders
-```
-
-### Code quality
-
-```bash
-npm run tsc:check     # verify TS compilation erros
-npm run test:cov      # run test coverage
-```
-
-### Install and exection
-
-```bash
-npm install           # project installation
+npm install             # project installation
+npm run build:watch     # start the app in watch mode
 ```
 
 ## Development mode
