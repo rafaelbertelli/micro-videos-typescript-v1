@@ -17,7 +17,7 @@ install:
 startDev:
 	@npm run start:dev
 
-testAll:
+test:
 	@npm run test
 
 testCore:
