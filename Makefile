@@ -11,6 +11,9 @@ clean:
 	@rm -rf ./src/nestjs/dist
 	@rm -rf ./src/nestjs/node_modules
 
+coreIndex:
+	@npm run cti:@core -w mvt-core
+
 install:
 	@npm install
 
