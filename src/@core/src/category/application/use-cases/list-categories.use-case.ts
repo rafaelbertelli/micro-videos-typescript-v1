@@ -10,6 +10,7 @@ export class ListCategoriesUseCase implements IUseCase<Input, Output> {
   constructor(private repository: CategoryRepository.Repository) {}
 
   async execute(input: Input): Promise<Output> {
+    console.log("LISTA");
     const params = new CategoryRepository.SearchParams(input);
     const searchResult = await this.repository.search(params);
 
