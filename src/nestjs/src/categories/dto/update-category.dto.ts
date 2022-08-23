@@ -1,4 +1,8 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateCategoryDto } from './create-category.dto';
+import { InputUpdateCategory } from 'mvt-core/category/application';
 
-export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {}
+export class UpdateCategoryDto implements InputUpdateCategory {
+  id: string;
+  name: string;
+  description?: string;
+  is_active?: boolean;
+}
