@@ -3,10 +3,12 @@ import { Category } from "../../domain/entities/category";
 import { CategoryRepository } from "../../domain/repository/category.repository";
 import { CategoryOutput } from "../dto/category-output.dto";
 
-export class CreateCategoryUseCase implements IUseCase<Input, Output> {
+export class CreateCategoryUseCase
+  implements IUseCase<InputCreateCategory, OutputCreateCategory>
+{
   constructor(private repository: CategoryRepository.Repository) {}
 
-  async execute(input: Input): Promise<Output> {
+  async execute(input: InputCreateCategory): Promise<OutputCreateCategory> {
     const entity = new Category(input);
 
     await this.repository.insert(entity);
@@ -21,10 +23,10 @@ export class CreateCategoryUseCase implements IUseCase<Input, Output> {
   }
 }
 
-type Input = {
+export type InputCreateCategory = {
   name: string;
   description?: string;
   is_active?: boolean;
 };
 
-type Output = CategoryOutput;
+export type OutputCreateCategory = CategoryOutput;
