@@ -1,55 +1,50 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Put,
 } from '@nestjs/common';
-import {
-  CreateCategoryUseCase,
-  ListCategoriesUseCase,
-} from 'mvt-core/category/application';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(
-    private readonly categoriesService: CategoriesService,
-    private readonly createUseCase: CreateCategoryUseCase,
-    private readonly listCategoriesUseCase: ListCategoriesUseCase,
-  ) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.createUseCase.execute({ name: 'AEEE CARAI' });
+    console.log('generatin', createCategoryDto);
     return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
-  findAll() {
-    return this.listCategoriesUseCase.execute({});
-    return this.categoriesService.findAll();
+  search() {
+    console.log('search');
+    return this.categoriesService.search({});
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
+    console.log('findOne');
+    return this.categoriesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+    return this.categoriesService.update({ id, ...updateCategoryDto });
   }
 
+  @HttpCode(204)
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.categoriesService.remove(+id);
+    return this.categoriesService.remove(id);
   }
 }

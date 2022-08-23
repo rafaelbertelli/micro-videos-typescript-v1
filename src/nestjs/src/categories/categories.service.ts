@@ -1,26 +1,61 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, Query } from '@nestjs/common';
+import {
+  CreateCategoryUseCase,
+  ListCategoriesUseCase,
+  DeleteCategoryUseCase,
+  GetCategoryUseCase,
+  UpdateCategoryUseCase,
+} from 'mvt-core/category/application';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { SearchCategoryDto } from './dto/search-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
+  /**
+   * se der problema nos testes ou em casos de uso
+   * posso remover o readonly
+   * pois eu adicionei ele aqui só pra conhecer seu comportamento
+   */
+
+  @Inject(CreateCategoryUseCase)
+  private readonly createUseCase: CreateCategoryUseCase;
+
+  @Inject(ListCategoriesUseCase)
+  private readonly listCategoriesUseCase: ListCategoriesUseCase;
+
+  @Inject(DeleteCategoryUseCase)
+  private readonly deleteCategoryUseCase: DeleteCategoryUseCase;
+
+  @Inject(GetCategoryUseCase)
+  private readonly getCategoryUseCase: GetCategoryUseCase;
+
+  @Inject(UpdateCategoryUseCase)
+  private readonly updateCategoryUseCase: UpdateCategoryUseCase;
+
   create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
+    console.log('create...', createCategoryDto);
+    try {
+      return this.createUseCase.execute(createCategoryDto);
+    } catch (error) {
+      console.log('error', error);
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all categories`;
+  search(@Query() searchParams: SearchCategoryDto) {
+    return this.listCategoriesUseCase.execute(searchParams);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  findOne(id: string) {
+    return this.getCategoryUseCase.execute({ id });
   }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
+  update(updateCategoryDto: UpdateCategoryDto) {
+    return this.updateCategoryUseCase.execute(updateCategoryDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  remove(id: string) {
+    return this.deleteCategoryUseCase.execute({ id });
   }
 }
