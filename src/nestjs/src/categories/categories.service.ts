@@ -12,12 +12,6 @@ import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
-  /**
-   * se der problema nos testes ou em casos de uso
-   * posso remover o readonly
-   * pois eu adicionei ele aqui só pra conhecer seu comportamento
-   */
-
   @Inject(CreateCategoryUseCase)
   private readonly createUseCase: CreateCategoryUseCase;
 
@@ -34,13 +28,7 @@ export class CategoriesService {
   private readonly updateCategoryUseCase: UpdateCategoryUseCase;
 
   create(createCategoryDto: CreateCategoryDto) {
-    console.log('create...', createCategoryDto);
-    try {
-      return this.createUseCase.execute(createCategoryDto);
-    } catch (error) {
-      console.log('error', error);
-      throw error;
-    }
+    return this.createUseCase.execute(createCategoryDto);
   }
 
   search(@Query() searchParams: SearchCategoryDto) {
@@ -51,8 +39,8 @@ export class CategoriesService {
     return this.getCategoryUseCase.execute({ id });
   }
 
-  update(updateCategoryDto: UpdateCategoryDto) {
-    return this.updateCategoryUseCase.execute(updateCategoryDto);
+  update(id: string, updateCategoryDto: UpdateCategoryDto) {
+    return this.updateCategoryUseCase.execute({ id, ...updateCategoryDto });
   }
 
   remove(id: string) {
