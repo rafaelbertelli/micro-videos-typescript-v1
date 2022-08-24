@@ -18,19 +18,16 @@ export class CategoriesController {
 
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
-    console.log('generatin', createCategoryDto);
     return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
   search() {
-    console.log('search');
     return this.categoriesService.search({});
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    console.log('findOne');
     return this.categoriesService.findOne(id);
   }
 
