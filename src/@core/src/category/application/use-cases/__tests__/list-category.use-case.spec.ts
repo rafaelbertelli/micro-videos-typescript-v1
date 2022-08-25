@@ -1,6 +1,6 @@
 import { SearchResult } from "#seedwork/domain/value-objects/search-result.vo";
 import { Category } from "../../../domain/entities/category";
-import { CategoryInMemoryRepository } from "../../../infra/category-in-memory.repository";
+import { CategoryInMemoryRepository } from "../../../infra/db/in-memory-repository/category-in-memory.repository";
 import { ListCategoriesUseCase } from "../list-categories.use-case";
 
 describe("ListCategoriesUseCase", () => {

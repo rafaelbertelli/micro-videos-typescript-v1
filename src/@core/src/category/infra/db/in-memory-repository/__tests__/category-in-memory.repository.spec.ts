@@ -1,5 +1,5 @@
 import { SearchParams } from "#seedwork/domain/value-objects/search-params.vo";
-import { Category } from "../../domain/entities/category";
+import { Category } from "../../../../domain/entities/category";
 import { CategoryInMemoryRepository } from "../category-in-memory.repository";
 
 describe("CategoryInMemoryRepository", () => {
