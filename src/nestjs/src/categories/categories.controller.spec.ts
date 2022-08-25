@@ -40,9 +40,15 @@ describe('CategoriesController Unit Tests', () => {
     });
   });
 
-  describe('get', () => {
+  describe('search', () => {
     it('should get a list of categories', async () => {
-      const input: SearchCategoryDto = {};
+      const searchParams: SearchCategoryDto = {
+        page: 1,
+        per_page: 15,
+        sort: 'name',
+        sort_dir: 'asc',
+        filter: 'test',
+      };
 
       const output = {
         items: [
@@ -65,10 +71,10 @@ describe('CategoriesController Unit Tests', () => {
       };
 
       controller['listCategoriesUseCase'] = mockListCategoryUseCase as any;
-      expect(controller.search(input)).toBeInstanceOf(Promise);
-      const category = await controller.search(input);
+      expect(controller.search(searchParams)).toBeInstanceOf(Promise);
+      const category = await controller.search(searchParams);
 
-      expect(mockListCategoryUseCase.execute).toBeCalledWith(input);
+      expect(mockListCategoryUseCase.execute).toBeCalledWith(searchParams);
       expect(category).toStrictEqual(output);
     });
   });
