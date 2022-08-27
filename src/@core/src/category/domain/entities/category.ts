@@ -63,7 +63,7 @@ export class Category extends Entity<CategoryProperties> {
     validator.validate(props);
 
     if (validator.errors) {
-      throw new EntityValidationError(validator.errors.toString());
+      throw new EntityValidationError(validator.errors);
     }
 
     return true;
