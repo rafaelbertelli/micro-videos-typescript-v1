@@ -58,4 +58,21 @@ describe("Category model mapper", () => {
       });
     }
   });
+
+  it("should throw a generic error", () => {
+    const spyValidate = jest
+      .spyOn(Category, "validate")
+      .mockImplementation(() => {
+        throw new Error("Generic Error");
+      });
+
+    const model = CategoryModel.build({
+      id: "cf38fe77-6033-4bf5-b481-0bc715d8a64f",
+    });
+
+    expect(() => CategoryModelMapper.toEntity(model)).toThrow(
+      new Error("Generic Error")
+    );
+    expect(spyValidate).toHaveBeenCalled();
+  });
 });
