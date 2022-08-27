@@ -1,4 +1,3 @@
-import { Datatype } from "@faker-js/faker/datatype";
 import { DataType, Sequelize } from "sequelize-typescript";
 import { CategoryModel } from "../category.model";
 
@@ -39,8 +38,6 @@ describe("Category model", () => {
     const description = attributesMap.description;
     const is_active = attributesMap.is_active;
     const created_at = attributesMap.created_at;
-
-    console.log(attributesMap);
 
     expect(id).toMatchObject({
       type: DataType.UUID(),

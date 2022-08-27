@@ -1,3 +1,5 @@
 // created from 'create-ts-index'
 
-export * from './category-model';
+export * from './mappers';
+export * from './category.model';
+export * from './category.repository';
