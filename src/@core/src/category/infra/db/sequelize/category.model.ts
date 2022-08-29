@@ -1,3 +1,4 @@
+import { SequelizeModelFactory } from "#seedwork/infra/db/sequelize/sequeliize-model-factory";
 import {
   Column,
   DataType,
@@ -31,4 +32,24 @@ export class CategoryModel extends Model<CategoryModelProperties> {
 
   @Column({ allowNull: false, type: DataType.DATE })
   declare created_at: Date;
+
+  /**
+   * Estou colocalndo uma factory pra gerar um repositório falso pra me ajudar nos testes aqui,
+   * porém, acredito que depois que eu conseguir consolidadar a idéia do que ele vai ser,
+   * este método possa ter sua próprica classe
+   */
+
+  static factory() {
+    const { faker } = require("@faker-js/faker");
+
+    const dataModel = {
+      id: faker.datatype.uuid(),
+      name: faker.internet.userName(),
+      description: faker.lorem.paragraph(),
+      is_active: faker.datatype.boolean(),
+      created_at: faker.date.past(),
+    };
+
+    return new SequelizeModelFactory(CategoryModel, () => dataModel);
+  }
 }
