@@ -1,28 +1,11 @@
 import { Category } from "#category/domain";
-import { LoadEntityError, UniqueEntityId } from "#seedwork/domain";
-import { Sequelize } from "sequelize-typescript";
+import { LoadEntityError } from "#seedwork/domain";
+import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
 import { CategoryModel } from "../../category.model";
 import { CategoryModelMapper } from "../category.model.mapper";
 
 describe("Category model mapper", () => {
-  let sequelize: Sequelize;
-
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ":memory:",
-      logging: false,
-      models: [CategoryModel],
-    });
-  });
-
-  beforeEach(async () => {
-    await sequelize.sync({ force: true });
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
+  setupSequelize({ models: [CategoryModel] });
 
   it("should convert to Category", () => {
     const arrange = {

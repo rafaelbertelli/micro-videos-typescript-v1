@@ -1,29 +1,15 @@
 import { Category } from "#category/domain";
 import { NotFoundError } from "#seedwork/domain";
-import { Sequelize } from "sequelize-typescript";
+import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
 import { CategoryModel } from "../category.model";
 import { CategorySequelizeRepository } from "../category.repository";
 
 describe("Category Sequelize Repository", () => {
-  let sequelize: Sequelize;
+  setupSequelize({ models: [CategoryModel] });
   let repository: CategorySequelizeRepository;
 
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ":memory:",
-      logging: false,
-      models: [CategoryModel],
-    });
-  });
-
-  beforeEach(async () => {
-    await sequelize.sync({ force: true });
+  beforeEach(() => {
     repository = new CategorySequelizeRepository(CategoryModel);
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
   });
 
   describe("insert", () => {
@@ -63,6 +49,18 @@ describe("Category Sequelize Repository", () => {
 
       expect(model_id.toJSON()).toStrictEqual(category.toJSON());
       expect(model_UID.toJSON()).toStrictEqual(category.toJSON());
+    });
+  });
+
+  describe("findAll", () => {
+    it("should return all categories", async () => {
+      const category = new Category({ name: "Teste" });
+      await repository.insert(category);
+
+      const result = await repository.findAll();
+
+      expect(result).toHaveLength(1);
+      expect(JSON.stringify(result)).toStrictEqual(JSON.stringify([category]));
     });
   });
 });

@@ -1,25 +1,9 @@
-import { DataType, Sequelize } from "sequelize-typescript";
+import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
+import { DataType } from "sequelize-typescript";
 import { CategoryModel } from "../category.model";
 
 describe("Category model", () => {
-  let sequelize: Sequelize;
-
-  beforeAll(() => {
-    sequelize = new Sequelize({
-      dialect: "sqlite",
-      host: ":memory:",
-      logging: false,
-      models: [CategoryModel],
-    });
-  });
-
-  beforeEach(async () => {
-    await sequelize.sync({ force: true });
-  });
-
-  afterAll(async () => {
-    await sequelize.close();
-  });
+  setupSequelize({ models: [CategoryModel] });
 
   it("should verify properties mapping", () => {
     const attributesMap = CategoryModel.getAttributes();
@@ -86,5 +70,10 @@ describe("Category model", () => {
     const category = await CategoryModel.create(arrange);
 
     expect(category.toJSON()).toStrictEqual(arrange);
+  });
+
+  it("factory", async () => {
+    await CategoryModel.factory().create();
+    console.log(await CategoryModel.findAll());
   });
 });
