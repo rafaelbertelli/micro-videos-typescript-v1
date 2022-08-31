@@ -7,7 +7,7 @@ import {
   Table,
 } from "sequelize-typescript";
 
-type CategoryModelProperties = {
+type CategoryModelProps = {
   id: string;
   name: string;
   description: string | null;
@@ -16,7 +16,7 @@ type CategoryModelProperties = {
 };
 
 @Table({ tableName: "categories", timestamps: false })
-export class CategoryModel extends Model<CategoryModelProperties> {
+export class CategoryModel extends Model<CategoryModelProps> {
   @PrimaryKey
   @Column({ type: DataType.UUID })
   declare id: string;
