@@ -7,7 +7,7 @@ describe("SearchParams", () => {
       expect(searchParams.page).toBe(1);
     });
 
-    test("validate page", () => {
+    describe("validate page", () => {
       const arrange = [
         { page: -1, expected: 1 },
         { page: 0, expected: 1 },
@@ -31,7 +31,7 @@ describe("SearchParams", () => {
         { page: 3, expected: 3 },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const searchParams = new SearchParams({ page: item.page });
         expect(searchParams.page).toBe(item.expected);
       });
@@ -44,7 +44,7 @@ describe("SearchParams", () => {
       expect(searchParams.per_page).toBe(15);
     });
 
-    test("validate per_page", () => {
+    describe("validate per_page", () => {
       const arrange = [
         { per_page: -1, expected: 15 },
         { per_page: 0, expected: 15 },
@@ -67,7 +67,7 @@ describe("SearchParams", () => {
         { per_page: 3, expected: 3 },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const searchParams = new SearchParams({ per_page: item.per_page });
         expect(searchParams.per_page).toBe(item.expected);
       });
@@ -80,7 +80,7 @@ describe("SearchParams", () => {
       expect(searchParams.sort).toBeNull();
     });
 
-    test("validate sort", () => {
+    describe("validate sort", () => {
       const arrange = [
         { sort: undefined, expected: null },
         { sort: null, expected: null },
@@ -104,7 +104,7 @@ describe("SearchParams", () => {
         { sort: 3, expected: "3" },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const searchParams = new SearchParams({ sort: item.sort });
         expect(searchParams.sort).toBe(item.expected);
       });
@@ -128,7 +128,7 @@ describe("SearchParams", () => {
       expect(searchParams.sort_dir).toBeNull();
     });
 
-    test("validate sort_dir", () => {
+    describe("validate sort_dir", () => {
       const arrange = [
         { sort_dir: "asc", expected: "asc" },
         { sort_dir: "desc", expected: "desc" },
@@ -158,7 +158,7 @@ describe("SearchParams", () => {
         { sort_dir: 3, expected: "asc" },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const searchParams = new SearchParams({
           sort: "name",
           sort_dir: item.sort_dir,
@@ -174,7 +174,7 @@ describe("SearchParams", () => {
       expect(searchParams.filter).toBeNull();
     });
 
-    test("validate filter", () => {
+    describe("validate filter", () => {
       const arrange = [
         { filter: undefined, expected: null },
         { filter: null, expected: null },
@@ -195,7 +195,7 @@ describe("SearchParams", () => {
         { filter: false, expected: "false" },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const searchParams = new SearchParams({ filter: item.filter });
         expect(searchParams.filter).toBe(item.expected);
       });

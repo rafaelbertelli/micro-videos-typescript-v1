@@ -1,7 +1,7 @@
 import { isEmpty } from "../empty-validation";
 
 describe("empty validation", () => {
-  it("should test boolean return of empty validation", () => {
+  describe("should test boolean return of empty validation", () => {
     const is = {
       EMPTY: true,
       NOT_EMPTY: false,
@@ -32,7 +32,7 @@ describe("empty validation", () => {
       { value: new Date(), expected: is.NOT_EMPTY },
     ];
 
-    arrange.forEach(({ value, expected }) => {
+    test.each(arrange)("validate %o", ({ value, expected }) => {
       expect(isEmpty(value)).toBe(expected);
     });
   });

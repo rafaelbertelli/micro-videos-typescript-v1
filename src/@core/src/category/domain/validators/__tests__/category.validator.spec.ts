@@ -2,7 +2,7 @@ import { CategoryValidatorFactory } from "../category.validator";
 
 describe("Category validator tests", () => {
   describe("property name", () => {
-    it("should validate invalid cases", () => {
+    describe("should validate invalid cases", () => {
       const EMPTY = "name should not be empty";
       const IS_STRING = "name must be a string";
       const MAX_LENGTH = "name must be shorter than or equal to 100 characters";
@@ -46,7 +46,7 @@ describe("Category validator tests", () => {
         },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(false);
@@ -54,10 +54,10 @@ describe("Category validator tests", () => {
       });
     });
 
-    it("should validate valid cases", () => {
+    describe("should validate valid cases", () => {
       const arrange = [{ name: "Arthur Morgan", expected: [] as any }];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(true);
@@ -67,7 +67,7 @@ describe("Category validator tests", () => {
   });
 
   describe("property description", () => {
-    it("should validate invalid cases", () => {
+    describe("should validate invalid cases", () => {
       const IS_STRING = "description must be a string";
 
       const arrange = [
@@ -98,7 +98,7 @@ describe("Category validator tests", () => {
         },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(false);
@@ -106,7 +106,7 @@ describe("Category validator tests", () => {
       });
     });
 
-    it("should validate valid cases", () => {
+    describe("should validate valid cases", () => {
       const arrange = [
         {
           name: "Arthur Morgan",
@@ -130,7 +130,7 @@ describe("Category validator tests", () => {
         },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(true);
@@ -140,7 +140,7 @@ describe("Category validator tests", () => {
   });
 
   describe("property is_active", () => {
-    it("should validate invalid cases", () => {
+    describe("should validate invalid cases", () => {
       const IS_ACTIVE = "is_active must be a boolean value";
 
       const arrange = [
@@ -166,7 +166,7 @@ describe("Category validator tests", () => {
         },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(false);
@@ -174,7 +174,7 @@ describe("Category validator tests", () => {
       });
     });
 
-    it("should validate valid cases", () => {
+    describe("should validate valid cases", () => {
       const arrange = [
         {
           name: "Arthur Morgan",
@@ -198,7 +198,7 @@ describe("Category validator tests", () => {
         },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(true);
@@ -208,7 +208,7 @@ describe("Category validator tests", () => {
   });
 
   describe("property created_at", () => {
-    it("should validate invalid cases", () => {
+    describe("should validate invalid cases", () => {
       const IS_DATE = "created_at must be a Date instance";
 
       const arrange = [
@@ -249,7 +249,7 @@ describe("Category validator tests", () => {
         },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(false);
@@ -257,7 +257,7 @@ describe("Category validator tests", () => {
       });
     });
 
-    it("should validate valid cases", () => {
+    describe("should validate valid cases", () => {
       const arrange = [
         {
           name: "Arthur Morgan",
@@ -286,7 +286,7 @@ describe("Category validator tests", () => {
         },
       ];
 
-      arrange.forEach((item) => {
+      test.each(arrange)("validate %o", (item) => {
         const validator = CategoryValidatorFactory.create();
         const result = validator.validate(item);
         expect(result).toBe(true);

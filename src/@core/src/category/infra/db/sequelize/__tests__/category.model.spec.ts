@@ -58,17 +58,20 @@ describe("Category model", () => {
     });
   });
 
-  it("create", async () => {
-    const arrange = {
-      id: "61324291-5568-4dcc-ac9c-20635e50d934",
-      name: "Test",
-      description: "Description of test",
-      is_active: true,
-      created_at: new Date(),
-    };
+  describe("create", () => {
+    const arrange = [
+      {
+        id: "61324291-5568-4dcc-ac9c-20635e50d934",
+        name: "Test",
+        description: "Description of test",
+        is_active: true,
+        created_at: new Date(),
+      },
+    ];
 
-    const category = await CategoryModel.create(arrange);
-
-    expect(category.toJSON()).toStrictEqual(arrange);
+    test.each(arrange)("validate %j", async (item) => {
+      const category = await CategoryModel.create(item);
+      expect(category.toJSON()).toStrictEqual(item);
+    });
   });
 });

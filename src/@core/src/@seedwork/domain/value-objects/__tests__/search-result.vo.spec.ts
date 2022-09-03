@@ -56,9 +56,8 @@ describe("SearchResult", () => {
     });
   });
 
-  it("should assert last_page calc", () => {
-    let params;
-    let arrange = [
+  describe("should assert last_page calc", () => {
+    const arrange = [
       {
         total: 10,
         per_page: 10,
@@ -86,8 +85,8 @@ describe("SearchResult", () => {
       },
     ];
 
-    arrange.forEach((item) => {
-      params = {
+    test.each(arrange)("arrange %o", (item) => {
+      const searchResult = new SearchResult({
         items: [],
         total: item.total,
         current_page: 1,
@@ -95,8 +94,7 @@ describe("SearchResult", () => {
         sort: null,
         sort_dir: null,
         filter: null,
-      };
-      const searchResult = new SearchResult(params);
+      });
 
       expect(searchResult.toJSON().last_page).toEqual(item.lastPage);
     });
