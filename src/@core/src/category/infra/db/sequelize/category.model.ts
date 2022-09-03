@@ -50,6 +50,9 @@ export class CategoryModel extends Model<CategoryModelProps> {
       created_at: faker.date.past(),
     };
 
-    return new SequelizeModelFactory(CategoryModel, () => dataModel);
+    return new SequelizeModelFactory<CategoryModel, CategoryModelProps>(
+      CategoryModel,
+      () => dataModel
+    );
   }
 }
