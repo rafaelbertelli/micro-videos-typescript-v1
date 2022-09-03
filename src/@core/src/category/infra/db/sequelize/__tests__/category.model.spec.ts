@@ -71,9 +71,4 @@ describe("Category model", () => {
 
     expect(category.toJSON()).toStrictEqual(arrange);
   });
-
-  it("factory", async () => {
-    await CategoryModel.factory().create();
-    console.log(await CategoryModel.findAll());
-  });
 });
