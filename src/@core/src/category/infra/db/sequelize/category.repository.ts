@@ -7,7 +7,8 @@ import { CategoryModelMapper } from "./mappers/category.model.mapper";
 export class CategorySequelizeRepository
   implements CategoryRepository.Repository
 {
-  sortableFields: string[] = ["id", "name", "created_at"];
+  defaultSort: string = "created_at";
+  sortableFields: string[] = ["name", "created_at"];
 
   constructor(private categoryModel: typeof CategoryModel) {}
 
@@ -54,10 +55,14 @@ export class CategorySequelizeRepository
       }),
       ...(props.sort && this.sortableFields.includes(props.sort)
         ? { order: [[props.sort, props.sort_dir]] }
-        : { order: [["created_at", "DESC"]] }),
+        : { order: [[this.defaultSort, "DESC"]] }),
       offset,
       limit,
     });
+
+    const normalizeSort = this.sortableFields.includes(props.sort)
+      ? props.sort
+      : this.defaultSort;
 
     return new CategoryRepository.SearchResult({
       items: models.map((m) => CategoryModelMapper.toEntity(m)),
@@ -65,7 +70,7 @@ export class CategorySequelizeRepository
       per_page: props.per_page,
       total: count,
       filter: props.filter,
-      sort: props.sort,
+      sort: normalizeSort,
       sort_dir: props.sort_dir,
     });
   }
