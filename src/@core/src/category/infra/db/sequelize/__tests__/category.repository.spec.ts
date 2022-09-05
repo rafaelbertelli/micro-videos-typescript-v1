@@ -3,13 +3,11 @@ import { NotFoundError, SearchResult, UniqueEntityId } from "#seedwork/domain";
 import { SearchParams } from "#seedwork/domain/value-objects/search-params.vo";
 import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
 import faker from "@faker-js/faker";
-import { CategoryModel } from "../category.model";
-import { CategorySequelizeRepository } from "../category.repository";
-import { CategoryModelMapper } from "../mappers";
+import { CategorySequelize } from "../category-sequelize";
 
 describe("Category Sequelize Repository", () => {
-  setupSequelize({ models: [CategoryModel] });
-  let repository: CategorySequelizeRepository;
+  setupSequelize({ models: [CategorySequelize.CategoryModel] });
+  let repository: CategorySequelize.CategorySequelizeRepository;
 
   const category_A = new Category(
     {
@@ -41,7 +39,9 @@ describe("Category Sequelize Repository", () => {
   );
 
   beforeEach(() => {
-    repository = new CategorySequelizeRepository(CategoryModel);
+    repository = new CategorySequelize.CategorySequelizeRepository(
+      CategorySequelize.CategoryModel
+    );
   });
 
   describe("sortableFields", () => {
@@ -52,13 +52,17 @@ describe("Category Sequelize Repository", () => {
 
   describe("insert", () => {
     it("should insert a new entity", async () => {
-      const categories = await CategoryModel.bulkCreate([
+      const categories = await CategorySequelize.CategoryModel.bulkCreate([
         category_A.toJSON(),
         category_B.toJSON(),
       ]);
 
-      const resultA = await CategoryModel.findByPk(categories[0].id);
-      const resultB = await CategoryModel.findByPk(categories[1].id);
+      const resultA = await CategorySequelize.CategoryModel.findByPk(
+        categories[0].id
+      );
+      const resultB = await CategorySequelize.CategoryModel.findByPk(
+        categories[1].id
+      );
 
       expect(resultA.toJSON()).toStrictEqual(category_A.toJSON());
       expect(resultB.toJSON()).toStrictEqual(category_B.toJSON());
@@ -100,11 +104,11 @@ describe("Category Sequelize Repository", () => {
   describe("search", () => {
     it("should call CategoryModelMapper.toEntity to each item from result", async () => {
       const spyOnCategoryModelMapper = jest.spyOn(
-        CategoryModelMapper,
+        CategorySequelize.CategoryModelMapper,
         "toEntity"
       );
 
-      await CategoryModel.factory()
+      await CategorySequelize.CategoryModel.factory()
         .count(16)
         .bulkCreate(() => ({
           id: faker.datatype.uuid(),
@@ -121,7 +125,7 @@ describe("Category Sequelize Repository", () => {
     });
 
     it("should return default pagination when it is not full defined on searchParams", async () => {
-      await CategoryModel.factory()
+      await CategorySequelize.CategoryModel.factory()
         .count(16)
         .bulkCreate(() => ({
           id: faker.datatype.uuid(),
@@ -395,7 +399,7 @@ describe("Category Sequelize Repository", () => {
 
     it("should order by created_at DESC when search params are null", async () => {
       const created_at = new Date();
-      await CategoryModel.factory()
+      await CategorySequelize.CategoryModel.factory()
         .count(16)
         .bulkCreate((index) => ({
           id: faker.datatype.uuid(),
@@ -427,7 +431,9 @@ describe("Category Sequelize Repository", () => {
         { id: faker.datatype.uuid(), name: "TeSt", ...defaultProps },
       ];
 
-      const categories = await CategoryModel.bulkCreate(categoriesProps);
+      const categories = await CategorySequelize.CategoryModel.bulkCreate(
+        categoriesProps
+      );
 
       let result = await repository.search(
         new SearchParams({ page: 1, per_page: 2, filter: "TEST" })
@@ -435,8 +441,8 @@ describe("Category Sequelize Repository", () => {
 
       let expected = new SearchResult({
         items: [
-          CategoryModelMapper.toEntity(categories[0]),
-          CategoryModelMapper.toEntity(categories[3]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[0]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[3]),
         ],
         total: 3,
         current_page: 1,
@@ -455,7 +461,7 @@ describe("Category Sequelize Repository", () => {
       );
 
       expected = new SearchResult({
-        items: [CategoryModelMapper.toEntity(categories[5])],
+        items: [CategorySequelize.CategoryModelMapper.toEntity(categories[5])],
         total: 3,
         current_page: 2,
         per_page: 2,
@@ -470,7 +476,7 @@ describe("Category Sequelize Repository", () => {
     });
 
     it("should search by created_at when given sort dont belong to its initial values", async () => {
-      const categories = await CategoryModel.bulkCreate([
+      const categories = await CategorySequelize.CategoryModel.bulkCreate([
         category_B.toJSON(),
         category_A.toJSON(),
         category_D.toJSON(),
@@ -483,10 +489,10 @@ describe("Category Sequelize Repository", () => {
 
       let expected = new SearchResult({
         items: [
-          CategoryModelMapper.toEntity(categories[0]),
-          CategoryModelMapper.toEntity(categories[2]),
-          CategoryModelMapper.toEntity(categories[1]),
-          CategoryModelMapper.toEntity(categories[3]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[0]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[2]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[1]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[3]),
         ],
         total: 4,
         current_page: 1,
@@ -516,7 +522,9 @@ describe("Category Sequelize Repository", () => {
         { id: faker.datatype.uuid(), name: "c", ...defaultProps },
       ];
 
-      const categories = await CategoryModel.bulkCreate(categoriesProps);
+      const categories = await CategorySequelize.CategoryModel.bulkCreate(
+        categoriesProps
+      );
 
       let result = await repository.search(
         new SearchParams({
@@ -529,9 +537,9 @@ describe("Category Sequelize Repository", () => {
 
       let expected = new SearchResult({
         items: [
-          CategoryModelMapper.toEntity(categories[1]),
-          CategoryModelMapper.toEntity(categories[0]),
-          CategoryModelMapper.toEntity(categories[4]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[1]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[0]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[4]),
         ],
         total: 5,
         current_page: 1,
@@ -556,9 +564,9 @@ describe("Category Sequelize Repository", () => {
 
       expected = new SearchResult({
         items: [
-          CategoryModelMapper.toEntity(categories[3]),
-          CategoryModelMapper.toEntity(categories[2]),
-          CategoryModelMapper.toEntity(categories[4]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[3]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[2]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[4]),
         ],
         total: 5,
         current_page: 1,
@@ -574,7 +582,7 @@ describe("Category Sequelize Repository", () => {
     });
 
     it("should search using sort, sort_dir and filter", async () => {
-      const categories = await CategoryModel.bulkCreate([
+      const categories = await CategorySequelize.CategoryModel.bulkCreate([
         category_A.toJSON(),
         category_B.toJSON(),
         category_C.toJSON(),
@@ -586,7 +594,7 @@ describe("Category Sequelize Repository", () => {
       );
 
       let expected = new SearchResult({
-        items: [CategoryModelMapper.toEntity(categories[3])],
+        items: [CategorySequelize.CategoryModelMapper.toEntity(categories[3])],
         total: 1,
         current_page: 1,
         per_page: 15,
@@ -605,9 +613,9 @@ describe("Category Sequelize Repository", () => {
 
       expected = new SearchResult({
         items: [
-          CategoryModelMapper.toEntity(categories[3]),
-          CategoryModelMapper.toEntity(categories[0]),
-          CategoryModelMapper.toEntity(categories[1]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[3]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[0]),
+          CategorySequelize.CategoryModelMapper.toEntity(categories[1]),
         ],
         total: 3,
         current_page: 1,

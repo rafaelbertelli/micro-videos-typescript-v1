@@ -1,12 +1,12 @@
 import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
 import { DataType } from "sequelize-typescript";
-import { CategoryModel } from "../category.model";
+import { CategorySequelize } from "../category-sequelize";
 
 describe("Category model", () => {
-  setupSequelize({ models: [CategoryModel] });
+  setupSequelize({ models: [CategorySequelize.CategoryModel] });
 
   it("should verify properties mapping", () => {
-    const attributesMap = CategoryModel.getAttributes();
+    const attributesMap = CategorySequelize.CategoryModel.getAttributes();
     const attributes = Object.keys(attributesMap);
 
     expect(attributes).toStrictEqual([
@@ -70,7 +70,7 @@ describe("Category model", () => {
     ];
 
     test.each(arrange)("validate %j", async (item) => {
-      const category = await CategoryModel.create(item);
+      const category = await CategorySequelize.CategoryModel.create(item);
       expect(category.toJSON()).toStrictEqual(item);
     });
   });

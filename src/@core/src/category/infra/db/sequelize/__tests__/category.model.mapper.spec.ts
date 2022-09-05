@@ -1,11 +1,10 @@
 import { Category } from "#category/domain";
 import { LoadEntityError } from "#seedwork/domain";
 import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
-import { CategoryModel } from "../../category.model";
-import { CategoryModelMapper } from "../category.model.mapper";
+import { CategorySequelize } from "../category-sequelize";
 
 describe("Category model mapper", () => {
-  setupSequelize({ models: [CategoryModel] });
+  setupSequelize({ models: [CategorySequelize.CategoryModel] });
 
   it("should convert to Category", () => {
     const arrange = {
@@ -16,20 +15,20 @@ describe("Category model mapper", () => {
       created_at: new Date(),
     };
 
-    const model = new CategoryModel(arrange);
+    const model = new CategorySequelize.CategoryModel(arrange);
     const category = new Category(arrange);
-    const result = CategoryModelMapper.toEntity(model);
+    const result = CategorySequelize.CategoryModelMapper.toEntity(model);
 
     expect(result.toJSON()).toStrictEqual(category.toJSON());
   });
 
   it("should throw an error", async () => {
-    const model = CategoryModel.build({
+    const model = CategorySequelize.CategoryModel.build({
       id: "cf38fe77-6033-4bf5-b481-0bc715d8a64f",
     });
 
     try {
-      CategoryModelMapper.toEntity(model);
+      CategorySequelize.CategoryModelMapper.toEntity(model);
     } catch (error: any) {
       expect(error).toBeInstanceOf(LoadEntityError);
       expect(error.error).toMatchObject({
@@ -49,11 +48,11 @@ describe("Category model mapper", () => {
         throw new Error("Generic Error");
       });
 
-    const model = CategoryModel.build({
+    const model = CategorySequelize.CategoryModel.build({
       id: "cf38fe77-6033-4bf5-b481-0bc715d8a64f",
     });
 
-    expect(() => CategoryModelMapper.toEntity(model)).toThrow(
+    expect(() => CategorySequelize.CategoryModelMapper.toEntity(model)).toThrow(
       new Error("Generic Error")
     );
     expect(spyValidate).toHaveBeenCalled();
