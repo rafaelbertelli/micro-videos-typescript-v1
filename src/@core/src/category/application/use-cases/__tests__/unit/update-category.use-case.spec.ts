@@ -1,7 +1,7 @@
+import { UpdateCategoryUseCase } from "#category/application/use-cases/update-category.use-case";
+import { Category } from "#category/domain/entities/category";
+import { CategoryInMemoryRepository } from "#category/infra/db/in-memory-repository/category-in-memory.repository";
 import { NotFoundError } from "#seedwork/domain/errors/not-found-error";
-import { Category } from "../../../domain/entities/category";
-import { CategoryInMemoryRepository } from "../../../infra/db/in-memory-repository/category-in-memory.repository";
-import { UpdateCategoryUseCase } from "../update-category.use-case";
 
 describe("UpdateCategoryUseCase", () => {
   let usecase: UpdateCategoryUseCase;

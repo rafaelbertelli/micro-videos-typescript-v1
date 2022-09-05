@@ -1,7 +1,7 @@
+import { GetCategoryUseCase } from "#category/application/use-cases/get-category.use-case";
+import { Category } from "#category/domain/entities/category";
+import { CategoryInMemoryRepository } from "#category/infra/db/in-memory-repository/category-in-memory.repository";
 import { NotFoundError } from "#seedwork/domain/errors/not-found-error";
-import { Category } from "../../../domain/entities/category";
-import { CategoryInMemoryRepository } from "../../../infra/db/in-memory-repository/category-in-memory.repository";
-import { GetCategoryUseCase } from "../get-category.use-case";
 
 describe("GetCategoryUseCase", () => {
   let usecase: GetCategoryUseCase;

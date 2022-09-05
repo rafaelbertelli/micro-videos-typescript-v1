@@ -1,7 +1,7 @@
+import { ListCategoriesUseCase } from "#category/application/use-cases/list-categories.use-case";
+import { Category } from "#category/domain/entities/category";
+import { CategoryInMemoryRepository } from "#category/infra/db/in-memory-repository/category-in-memory.repository";
 import { SearchResult } from "#seedwork/domain/value-objects/search-result.vo";
-import { Category } from "../../../domain/entities/category";
-import { CategoryInMemoryRepository } from "../../../infra/db/in-memory-repository/category-in-memory.repository";
-import { ListCategoriesUseCase } from "../list-categories.use-case";
 
 describe("ListCategoriesUseCase", () => {
   let usecase: ListCategoriesUseCase;
