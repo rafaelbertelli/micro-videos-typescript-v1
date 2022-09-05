@@ -1,5 +1,10 @@
 import { Category } from "#category/domain";
-import { NotFoundError, SearchResult, UniqueEntityId } from "#seedwork/domain";
+import {
+  Entity,
+  NotFoundError,
+  SearchResult,
+  UniqueEntityId,
+} from "#seedwork/domain";
 import { SearchParams } from "#seedwork/domain/value-objects/search-params.vo";
 import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
 import faker from "@faker-js/faker";
@@ -8,35 +13,6 @@ import { CategorySequelize } from "../category-sequelize";
 describe("Category Sequelize Repository", () => {
   setupSequelize({ models: [CategorySequelize.CategoryModel] });
   let repository: CategorySequelize.CategorySequelizeRepository;
-
-  const category_A = new Category(
-    {
-      name: "Test A",
-      created_at: new Date("2020-01-01"),
-    },
-    new UniqueEntityId()
-  );
-  const category_B = new Category(
-    {
-      name: "TEST B",
-      created_at: new Date("2022-01-01"),
-    },
-    new UniqueEntityId()
-  );
-  const category_C = new Category(
-    {
-      name: "C",
-      created_at: new Date("2019-01-01"),
-    },
-    new UniqueEntityId()
-  );
-  const category_D = new Category(
-    {
-      name: "Teste D",
-      created_at: new Date("2021-01-01"),
-    },
-    new UniqueEntityId()
-  );
 
   beforeEach(() => {
     repository = new CategorySequelize.CategorySequelizeRepository(
@@ -52,6 +28,21 @@ describe("Category Sequelize Repository", () => {
 
   describe("insert", () => {
     it("should insert a new entity", async () => {
+      const category_A = new Category(
+        {
+          name: "Test A",
+          created_at: new Date("2020-01-01"),
+        },
+        new UniqueEntityId()
+      );
+      const category_B = new Category(
+        {
+          name: "TEST B",
+          created_at: new Date("2022-01-01"),
+        },
+        new UniqueEntityId()
+      );
+
       const categories = await CategorySequelize.CategoryModel.bulkCreate([
         category_A.toJSON(),
         category_B.toJSON(),
@@ -98,6 +89,66 @@ describe("Category Sequelize Repository", () => {
 
       expect(result).toHaveLength(1);
       expect(JSON.stringify(result)).toStrictEqual(JSON.stringify([category]));
+    });
+  });
+
+  describe("update", () => {
+    const category_A = new Category(
+      {
+        name: "Test A",
+        created_at: new Date("2020-01-01"),
+      },
+      new UniqueEntityId()
+    );
+
+    it("should throw an error when a category is not into db", async () => {
+      await expect(repository.update(category_A)).rejects.toThrow(
+        new NotFoundError(`Entity with id ${category_A.id} not found`)
+      );
+    });
+
+    it("should update a category", async () => {
+      await repository.insert(category_A);
+
+      category_A.update({
+        name: "Name updated",
+        description: "Description updated",
+      });
+
+      await repository.update(category_A);
+      const entityFound = await repository.findById(category_A.id);
+
+      expect(entityFound.toJSON()).toStrictEqual(category_A.toJSON());
+    });
+  });
+
+  describe("delete", () => {
+    const category_A = new Category(
+      {
+        name: "Test A",
+        created_at: new Date("2020-01-01"),
+      },
+      new UniqueEntityId()
+    );
+
+    it("should throw an error when a category is not into db", async () => {
+      await expect(repository.delete(category_A.id)).rejects.toThrow(
+        new NotFoundError(`Entity with id ${category_A.id} not found`)
+      );
+    });
+
+    it("should delete a category", async () => {
+      await repository.insert(category_A);
+
+      const entityFound = await repository.findById(category_A.id);
+      expect(entityFound.toJSON()).toStrictEqual(category_A.toJSON());
+
+      await repository.delete(category_A.id);
+
+      const notFoundEntity = await CategorySequelize.CategoryModel.findByPk(
+        category_A.id
+      );
+      expect(notFoundEntity).toBeNull();
     });
   });
 
@@ -476,6 +527,35 @@ describe("Category Sequelize Repository", () => {
     });
 
     it("should search by created_at when given sort dont belong to its initial values", async () => {
+      const category_A = new Category(
+        {
+          name: "Test A",
+          created_at: new Date("2020-01-01"),
+        },
+        new UniqueEntityId()
+      );
+      const category_B = new Category(
+        {
+          name: "TEST B",
+          created_at: new Date("2022-01-01"),
+        },
+        new UniqueEntityId()
+      );
+      const category_C = new Category(
+        {
+          name: "C",
+          created_at: new Date("2019-01-01"),
+        },
+        new UniqueEntityId()
+      );
+      const category_D = new Category(
+        {
+          name: "Teste D",
+          created_at: new Date("2021-01-01"),
+        },
+        new UniqueEntityId()
+      );
+
       const categories = await CategorySequelize.CategoryModel.bulkCreate([
         category_B.toJSON(),
         category_A.toJSON(),
@@ -582,6 +662,35 @@ describe("Category Sequelize Repository", () => {
     });
 
     it("should search using sort, sort_dir and filter", async () => {
+      const category_A = new Category(
+        {
+          name: "Test A",
+          created_at: new Date("2020-01-01"),
+        },
+        new UniqueEntityId()
+      );
+      const category_B = new Category(
+        {
+          name: "TEST B",
+          created_at: new Date("2022-01-01"),
+        },
+        new UniqueEntityId()
+      );
+      const category_C = new Category(
+        {
+          name: "C",
+          created_at: new Date("2019-01-01"),
+        },
+        new UniqueEntityId()
+      );
+      const category_D = new Category(
+        {
+          name: "Teste D",
+          created_at: new Date("2021-01-01"),
+        },
+        new UniqueEntityId()
+      );
+
       const categories = await CategorySequelize.CategoryModel.bulkCreate([
         category_A.toJSON(),
         category_B.toJSON(),
