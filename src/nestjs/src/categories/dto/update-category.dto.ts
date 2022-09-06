@@ -1,6 +1,6 @@
-import { InputUpdateCategory } from 'mvt-core/category/application';
+import { InUpdate } from 'mvt-core/category/application';
 
-export class UpdateCategoryDto implements Omit<InputUpdateCategory, 'id'> {
+export class UpdateCategoryDto implements Omit<InUpdate, 'id'> {
   name: string;
   description?: string;
   is_active?: boolean;
