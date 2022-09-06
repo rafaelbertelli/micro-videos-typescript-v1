@@ -1,16 +1,11 @@
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
+import { configEnv } from "../config";
 
 const sequelizeOptions: SequelizeOptions = {
-  dialect: "sqlite",
-  host: ":memory:",
-  logging: false,
+  dialect: configEnv.db.vendor,
+  host: configEnv.db.host,
+  logging: configEnv.db.logging,
 };
-
-// const sequelizeOptions: SequelizeOptions = {
-//   dialect: config.db.vendor,
-//   host: config.db.host,
-//   logging: config.db.logging,
-// };
 
 export function setupSequelize(options: SequelizeOptions = {}) {
   let _sequelize: Sequelize;
