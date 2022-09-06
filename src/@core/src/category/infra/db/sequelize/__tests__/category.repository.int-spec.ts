@@ -1,10 +1,5 @@
 import { Category } from "#category/domain";
-import {
-  Entity,
-  NotFoundError,
-  SearchResult,
-  UniqueEntityId,
-} from "#seedwork/domain";
+import { NotFoundError, SearchResult, UniqueEntityId } from "#seedwork/domain";
 import { SearchParams } from "#seedwork/domain/value-objects/search-params.vo";
 import { setupSequelize } from "#seedwork/infra/db/testing/setup-sequelize";
 import faker from "@faker-js/faker";

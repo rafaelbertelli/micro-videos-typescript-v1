@@ -3,7 +3,7 @@ import { Category } from "#category/domain/entities/category";
 import { CategoryInMemoryRepository } from "#category/infra/db/in-memory-repository/category-in-memory.repository";
 import { NotFoundError } from "#seedwork/domain/errors/not-found-error";
 
-describe("UpdateCategoryUseCase", () => {
+describe("UpdateCategoryUseCase Unit Tests", () => {
   let usecase: UpdateCategoryUseCase;
   let repository: CategoryInMemoryRepository;
 

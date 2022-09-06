@@ -68,22 +68,17 @@ export class Category extends Entity<CategoryProperties> {
 
     return true;
   }
-
-  update(props: UpdateCategoryProperties): Category {
+  update(props: UpdateCategoryProperties): void {
     Category.validate({ name: props.name, description: props.description });
-
     this.description = props.description;
     this.name = props.name;
-    return this;
   }
-
-  activate(): Category {
+  activate(): void {
+    this.props.is_active = true;
     this.is_active = true;
-    return this;
   }
-
-  deactivate(): Category {
+  deactivate(): void {
+    this.props.is_active = false;
     this.is_active = false;
-    return this;
   }
 }

@@ -94,8 +94,9 @@ export namespace CategorySequelize {
     }
 
     async update(entity: Category): Promise<void> {
-      await this._getBy(entity.id);
-      await this.categoryModel.update(entity.toJSON(), {
+      const entityToJson = entity.toJSON();
+      await this._getBy(entityToJson.id);
+      await this.categoryModel.update(entityToJson, {
         where: { id: entity.id },
       });
     }

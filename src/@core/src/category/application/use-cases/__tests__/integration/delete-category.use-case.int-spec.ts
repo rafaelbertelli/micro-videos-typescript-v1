@@ -1,14 +1,18 @@
 import { DeleteCategoryUseCase } from "#category/application/use-cases/delete-category.use-case";
-import { Category } from "#category/domain/entities/category";
-import { CategoryInMemoryRepository } from "#category/infra/db/in-memory-repository/category-in-memory.repository";
+import { CategorySequelize } from "#category/infra";
 import { NotFoundError } from "#seedwork/domain/errors/not-found-error";
+import { setupSequelize } from "#seedwork/infra";
 
-describe("DeleteCategoryUseCase Unit Tests", () => {
+const { CategoryModel, CategorySequelizeRepository } = CategorySequelize;
+
+describe("DeleteCategoryUseCase Integration Tests", () => {
+  setupSequelize({ models: [CategoryModel] });
+
   let usecase: DeleteCategoryUseCase;
-  let repository: CategoryInMemoryRepository;
+  let repository: CategorySequelize.CategorySequelizeRepository;
 
   beforeEach(() => {
-    repository = new CategoryInMemoryRepository();
+    repository = new CategorySequelizeRepository(CategoryModel);
     usecase = new DeleteCategoryUseCase(repository);
   });
 
@@ -23,13 +27,9 @@ describe("DeleteCategoryUseCase Unit Tests", () => {
   });
 
   it("should delete entity", async () => {
-    const entity = new Category({ name: "name", description: "description" });
-    repository.items = [entity];
-
-    expect(repository.items.length).toBe(1);
-
-    await usecase.execute({ id: entity.id });
-
-    expect(repository.items.length).toBe(0);
+    const { id } = await CategoryModel.factory().create();
+    await usecase.execute({ id });
+    const hasNoModel = await CategoryModel.findByPk(id);
+    expect(hasNoModel).toBeNull();
   });
 });

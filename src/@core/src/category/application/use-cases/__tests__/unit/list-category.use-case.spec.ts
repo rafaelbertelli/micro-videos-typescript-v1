@@ -3,7 +3,7 @@ import { Category } from "#category/domain/entities/category";
 import { CategoryInMemoryRepository } from "#category/infra/db/in-memory-repository/category-in-memory.repository";
 import { SearchResult } from "#seedwork/domain/value-objects/search-result.vo";
 
-describe("ListCategoriesUseCase", () => {
+describe("ListCategoriesUseCase Unit Test", () => {
   let usecase: ListCategoriesUseCase;
   let repository: CategoryInMemoryRepository;
 
