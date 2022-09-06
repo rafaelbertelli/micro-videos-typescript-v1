@@ -7,8 +7,10 @@ buildNestjs:
 clean:
 	@rm -rf node_modules
 	@rm -rf ./src/@core/dist
+	@rm -rf ./src/@core/coverage
 	@rm -rf ./src/@core/node_modules
 	@rm -rf ./src/nestjs/dist
+	@rm -rf ./src/nestjs/coverage
 	@rm -rf ./src/nestjs/node_modules
 
 coreIndex:
