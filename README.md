@@ -27,7 +27,9 @@ docker-compose exec app bash      # access container
 ### Manually
 
 ```bash
-npm install
+nvm use                                      # use project node version
+npm install                                  # install projects
+cp src/@core/.env.example src/@core/.env     # generate .env file
 
 ... to be defined ...
 ```
@@ -61,3 +63,5 @@ exemple:
 ```bash
 npm run test --workspaces
 ```
+
+> Check projects `package.json`, `Makefile` and `README` to see possible npm scripts

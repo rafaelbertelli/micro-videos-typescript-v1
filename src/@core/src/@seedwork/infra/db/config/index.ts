@@ -22,7 +22,7 @@ function makeConfig(envFile): Config {
 }
 
 const envTestingFile = join(__dirname, "../../../../../.env.test");
-const envProdFile = join(__dirname, "../../../../../.env.test");
+const envProdFile = join(__dirname, "../../../../../.env");
 
 const getEnvFile =
   process.env.NODE_ENV === "production" ? envProdFile : envTestingFile;
