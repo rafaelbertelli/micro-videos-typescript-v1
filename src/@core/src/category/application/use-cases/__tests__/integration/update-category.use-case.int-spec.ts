@@ -6,6 +6,7 @@ import { UpdateCategoryUseCase } from "../../update-category.use-case";
 const { CategoryModel, CategorySequelizeRepository } = CategorySequelize;
 
 describe("UpdateCategoryUseCase Integration Tests", () => {
+  jest.setTimeout(10000);
   setupSequelize({ models: [CategoryModel] });
 
   let usecase: UpdateCategoryUseCase;

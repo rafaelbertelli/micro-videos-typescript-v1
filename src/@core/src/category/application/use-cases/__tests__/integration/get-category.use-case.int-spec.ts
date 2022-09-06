@@ -6,6 +6,7 @@ import { setupSequelize } from "#seedwork/infra";
 const { CategoryModel, CategorySequelizeRepository } = CategorySequelize;
 
 describe("GetCategoryUseCase Integration Tests", () => {
+  jest.setTimeout(10000);
   setupSequelize({ models: [CategoryModel] });
 
   let usecase: GetCategoryUseCase;
