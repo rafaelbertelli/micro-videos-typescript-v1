@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "test": "npm run test --workspaces",
-    "prestart:dev": "npm run build -w mvt-core",
-    "start:dev": "npm run build:watch -w mvt-core & npm run start:dev -w mvt-nest"
+    "prestart:dev": "npm run build -w mvt-core & npm run cti",
+    "start:dev": "npm run build:watch -w mvt-core & npm run start:dev -w mvt-nest",
+    "cti": "npm run cti:@core -w mvt-core"
   }
 }

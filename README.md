@@ -31,6 +31,7 @@ nvm use                                                   # use project node ver
 npm install                                               # install projects
 cp src/@core/.env.example src/@core/.env                  # generate .env file
 cp src/nestjs/envs/.env.example src/nestjs/envs/.env      # generate .env file
+npm run start:dev                                         # run project in development mode
 ```
 
 ---
