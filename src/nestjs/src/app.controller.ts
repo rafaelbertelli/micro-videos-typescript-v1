@@ -11,7 +11,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    console.log('NODE_ENV', process.env.NODE_ENV);
+    console.log('NODE_ENV', this.configService.get('DB_HOST'));
 
     return this.appService.getHello();
   }

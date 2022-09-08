@@ -7,7 +7,7 @@ const { CategoryModel, CategorySequelizeRepository, CategoryModelMapper } =
   CategorySequelize;
 
 describe("ListCategoriesUseCase Integration Test", () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(20000);
   setupSequelize({ models: [CategoryModel] });
 
   let usecase: ListCategoriesUseCase;

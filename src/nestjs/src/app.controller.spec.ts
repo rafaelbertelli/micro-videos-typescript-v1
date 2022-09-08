@@ -14,7 +14,7 @@ describe('AppController', () => {
     app = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
-          envFilePath: join(__dirname, './envs/.env.test'),
+          envFilePath: join(__dirname, './../.env.test'),
         }),
       ],
       controllers: [AppController],
@@ -24,7 +24,7 @@ describe('AppController', () => {
     appController = app.get<AppController>(AppController);
     configService = app.get<ConfigService<CONFIG_SCHEMA_TYPE>>(ConfigService);
 
-    console.log(configService.get('DB_VENDOR'));
+    // console.log(configService.get('DB_VENDOR'));
   });
 
   describe('root', () => {

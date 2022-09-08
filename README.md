@@ -30,7 +30,7 @@ docker-compose exec app bash      # access container
 nvm use                                                   # use project node version
 npm install                                               # install projects
 cp src/@core/.env.example src/@core/.env                  # generate .env file
-cp src/nestjs/envs/.env.example src/nestjs/envs/.env      # generate .env file
+cp src/nestjs/.env.example src/nestjs/.env                # generate .env file
 npm run start:dev                                         # run project in development mode
 ```
 
