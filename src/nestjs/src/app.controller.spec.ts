@@ -3,12 +3,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from './config/config.module';
+import { ConfigModule, CONFIG_SCHEMA_TYPE } from './config/config.module';
 
 describe('AppController', () => {
   let appController: AppController;
   let app: TestingModule;
-  let configService: ConfigService;
+  let configService: ConfigService<CONFIG_SCHEMA_TYPE>;
 
   beforeEach(async () => {
     app = await Test.createTestingModule({
@@ -22,9 +22,9 @@ describe('AppController', () => {
     }).compile();
 
     appController = app.get<AppController>(AppController);
-    configService = app.get(ConfigService);
+    configService = app.get<ConfigService<CONFIG_SCHEMA_TYPE>>(ConfigService);
 
-    // console.log(app.get(ConfigService).get('DB_VENDOR'));
+    console.log(configService.get('DB_VENDOR'));
   });
 
   describe('root', () => {
