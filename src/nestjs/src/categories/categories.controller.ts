@@ -10,6 +10,7 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
   CreateCategoryUseCase,
   DeleteCategoryUseCase,
@@ -42,6 +43,9 @@ export class CategoriesController {
   @Inject(UpdateCategoryUseCase)
   private updateCategoryUseCase: UpdateCategoryUseCase;
 
+  @Inject(ConfigService)
+  private configService: ConfigService;
+
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.createUseCase.execute(createCategoryDto);
@@ -49,6 +53,9 @@ export class CategoriesController {
 
   @Get()
   search(@Query() searchParams: SearchCategoryDto) {
+    console.log('DB_HOST', this.configService.get('DB_HOST'));
+    console.log('DB_VENDOR', this.configService.get('DB_VENDOR'));
+
     return this.listCategoriesUseCase.execute(searchParams);
   }
 

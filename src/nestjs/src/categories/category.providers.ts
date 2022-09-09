@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
+import { getModelToken } from '@nestjs/sequelize';
 import {
   CreateCategoryUseCase,
   DeleteCategoryUseCase,
@@ -13,15 +14,23 @@ import {
 } from 'mvt-core/category/infra';
 
 export namespace CATEGORY_PROVIDERS {
+  const providers = {
+    CATEGORY_IN_MEMORY_REPOSITORY: 'CategoryInMemoryRepository',
+    CATEGORY_SEQUELIZE_REPOSITORY: 'CategorySequelizeRepository',
+  };
+
   export namespace REPOSITORIES {
     export const CATEGORY_IN_MEMORY_REPOSITORY = {
-      provide: 'CategoryInMemoryRepository',
+      provide: providers.CATEGORY_IN_MEMORY_REPOSITORY,
       useClass: CategoryInMemoryRepository,
     };
 
     export const CATEGORY_SEQUELIZE_REPOSITORY = {
-      provide: 'CategorySequelizeRepository',
-      useClass: CategorySequelize.CategorySequelizeRepository,
+      provide: providers.CATEGORY_SEQUELIZE_REPOSITORY,
+      useFactory: (categoryModel: typeof CategorySequelize.CategoryModel) => {
+        return new CategorySequelize.CategorySequelizeRepository(categoryModel);
+      },
+      inject: [getModelToken(CategorySequelize.CategoryModel)],
     };
 
     /**
@@ -31,7 +40,7 @@ export namespace CATEGORY_PROVIDERS {
      */
     export const CATEGORY_REPOSITORY = {
       provide: 'CategoryRepository',
-      useExisting: 'CategorySequelizeRepository',
+      useExisting: providers.CATEGORY_SEQUELIZE_REPOSITORY,
     };
   }
 
